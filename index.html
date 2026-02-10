@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KentScript | Next-Generation Programming Language</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>K</text></svg>">
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --accent: #f472b6;
+            --dark: #020617;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .code-font {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+        
+        .hero-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(129, 140, 248, 0.05) 0%, transparent 30%),
+                        radial-gradient(circle at 20% 80%, rgba(244, 114, 182, 0.05) 0%, transparent 30%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .nav-glass {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.1);
+        }
+        
+        .language-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .syntax-highlight {
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .syntax-highlight:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-ring {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .type-badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stats-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="nav-glass fixed top-0 w-full z-50 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center font-bold text-xl shadow-lg">
+                    <span class="text-white">K</span>
+                </div>
+                <span class="text-xl font-bold tracking-tight">
+                    <span class="text-white">Kent</span><span class="gradient-text font-black">Script</span>
+                </span>
+                <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full font-bold">v5.0</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-gray-300 hover:text-white transition-colors font-medium">Features</a>
+                <a href="#syntax" class="text-gray-300 hover:text-white transition-colors font-medium">Syntax</a>
+                <a href="#modules" class="text-gray-300 hover:text-white transition-colors font-medium">Modules</a>
+                <a href="#about" class="text-gray-300 hover:text-white transition-colors font-medium">Creator</a>
+                <a href="#donate" class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-5 py-2 rounded-lg font-semibold hover:shadow-lg transition-all">Sponsor</a>
+            </div>
+            
+            <button class="md:hidden text-gray-300">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center pt-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full pulse-ring"></span>
+                            <span class="text-sm text-blue-400 font-medium">Alpha Release v5.0</span>
+                        </div>
+                        <h1 class="text-5xl md:text-7xl font-black leading-tight">
+                            TypeScript Syntax.<br>
+                            <span class="gradient-text">Python Power.</span>
+                        </h1>
+                        <p class="text-xl text-gray-400 leading-relaxed">
+                            A compiled, multi-threaded language with modern syntax, built-in JIT compilation, 
+                            and seamless Python interoperability. Designed for the next generation of developers.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#get-started" 
+                           class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-3">
+                            <i class="fas fa-rocket"></i>
+                            Get Started
+                        </a>
+                        <a href="https://github.com/musikaalvin/kentscript" 
+                           class="glass-effect border border-gray-800 px-8 py-4 rounded-xl font-bold text-lg hover:border-blue-500 transition-all flex items-center gap-3">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </a>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-6 pt-8">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-bolt text-blue-400 text-xl"></i>
+                            <div>
+                                <div class="font-bold text-2xl">10x</div>
+                                <div class="text-sm text-gray-500">Faster with JIT</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-microchip text-purple-400 text-xl"></i>
+                            <div>
+                                <div class="font-bold text-2xl">Multi</div>
+                                <div class="text-sm text-gray-500">Threading</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-shield-alt text-green-400 text-xl"></i>
+                            <div>
+                                <div class="font-bold text-2xl">Type Safe</div>
+                                <div class="text-sm text-gray-500">Runtime Checking</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="glass-effect rounded-2xl p-8 shadow-2xl">
+                        <div class="flex items-center gap-2 mb-6">
+                            <div class="flex gap-1">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="text-sm text-gray-500 code-font flex-1 text-center">example.ks</div>
+                        </div>
+                        
+                        <div class="syntax-highlight">
+                            <button class="copy-btn glass-effect p-2 rounded-lg text-sm">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <pre class="code-font text-sm overflow-x-auto"><code class="language-python">
+// Modern KentScript Example
+func fibonacci(n: int) -> list {
+    if n <= 0 { return []; }
+    if n == 1 { return [0]; }
+    
+    let sequence = [0, 1];
+    while len(sequence) < n {
+        let next = sequence[-1] + sequence[-2];
+        sequence.push(next);
+    }
+    return sequence;
+}
+
+// Async HTTP request
+async func fetchData(url: string) -> dict {
+    import http;
+    let response = await http.get(url);
+    return json.parse(response.body);
+}
+
+// Multi-threading
+let futures = [];
+for url in urls {
+    let future = thread fetchData(url);
+    futures.push(future);
+}
+
+// Wait for all threads
+let results = await Promise.all(futures);
+                            </code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-6 -right-6 bg-gradient-to-br from-purple-500 to-pink-500 text-white p-4 rounded-2xl shadow-xl animate-float">
+                        <i class="fas fa-code text-2xl"></i>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 bg-gradient-to-br from-blue-500 to-cyan-500 text-white p-4 rounded-2xl shadow-xl animate-float" style="animation-delay: 1s;">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-24 px-6 bg-gradient-to-b from-dark to-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Professional Feature Set</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    KentScript combines the best of modern programming paradigms with performance-focused architecture
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card glass-effect rounded-2xl p-8 border border-gray-800">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-blue-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-microchip text-2xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Bytecode Compiler & VM</h3>
+                    <p class="text-gray-400 mb-4">
+                        Advanced compilation pipeline from .ks source → AST → .kbc bytecode → KVM execution with 5-10x performance boost.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="language-tag bg-blue-500/20 text-blue-400">Bytecode</span>
+                        <span class="language-tag bg-purple-500/20 text-purple-400">JIT</span>
+                        <span class="language-tag bg-green-500/20 text-green-400">Optimizer</span>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card glass-effect rounded-2xl p-8 border border-gray-800">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-purple-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-layer-group text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Multi-Threading Engine</h3>
+                    <p class="text-gray-400 mb-4">
+                        Native <code class="code-font text-purple-300">thread</code> keyword with thread pool, mutex, semaphore, and futures support.
+                    </p>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>thread processData(data); // Spawn thread</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card glass-effect rounded-2xl p-8 border border-gray-800">
+                    <div class="w-14 h-14 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-2xl text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Type System & Safety</h3>
+                    <p class="text-gray-400 mb-4">
+                        Runtime type checking with inference, generics support, and optional static analysis.
+                    </p>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>let age: int = 25; // Type annotated
+let name = "John"; // Type inferred</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card glass-effect rounded-2xl p-8 border border-gray-800">
+                    <div class="w-14 h-14 bg-gradient-to-br from-yellow-500/20 to-yellow-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-box-open text-2xl text-yellow-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Package Manager (KPM)</h3>
+                    <p class="text-gray-400 mb-4">
+                        Built-in package manager with registry support, versioning, and dependency resolution.
+                    </p>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>kpm install http-utils
+kpm install data-science@latest</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card glass-effect rounded-2xl p-8 border border-gray-800">
+                    <div class="w-14 h-14 bg-gradient-to-br from-pink-500/20 to-pink-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-2xl text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Async/Await & Coroutines</h3>
+                    <p class="text-gray-400 mb-4">
+                        Modern asynchronous programming with native <code>async</code>/<code>await</code> syntax.
+                    </p>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>async func fetch(url) {
+    let data = await http.get(url);
+    return process(data);
+}</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card glass-effect rounded-2xl p-8 border border-gray-800">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-500/20 to-cyan-500/10 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-project-diagram text-2xl text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">GUI Toolkit</h3>
+                    <p class="text-gray-400 mb-4">
+                        Native GUI framework with widgets, layout engine, and event system (tkinter-based).
+                    </p>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>import gui;
+let win = gui.Window("App");
+win.add(Button("Click Me"));</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Language Syntax -->
+    <section id="syntax" class="py-24 px-6 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Language Syntax & Features</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Modern, expressive syntax combining the best of TypeScript, Python, and Rust
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Syntax Examples -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fas fa-code text-blue-400"></i>
+                            Core Syntax
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="syntax-highlight glass-effect rounded-xl p-6">
+                                <h4 class="font-bold mb-3 text-gray-300">Variables & Types</h4>
+                                <pre class="code-font text-sm"><code class="language-python">
+// Type annotations and inference
+let name: string = "KentScript";
+let version = 5.0; // inferred as float
+const PI = 3.14159;
+
+// Collections with type hints
+let numbers: list[int] = [1, 2, 3, 4, 5];
+let config: dict[str, any] = {
+    "debug": true,
+    "port": 8080
+};
+
+// Null safety
+let maybe: ?string = null;
+let definitely: string = "value";
+                                </code></pre>
+                            </div>
+                            
+                            <div class="syntax-highlight glass-effect rounded-xl p-6">
+                                <h4 class="font-bold mb-3 text-gray-300">Functions & Lambdas</h4>
+                                <pre class="code-font text-sm"><code class="language-python">
+// Function definition
+func greet(name: string, times: int = 1) -> string {
+    return "Hello " + name + "!".repeat(times);
+}
+
+// Lambda expressions
+let square = (x: int) => x * x;
+let add = (a: int, b: int) => a + b;
+
+// Higher-order functions
+func applyTwice(f: function, x: any) -> any {
+    return f(f(x));
+}
+
+// Decorators
+@logExecution
+@validateParams
+func process(data: list) -> list {
+    return data.map(x => x * 2);
+}
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Features -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fas fa-cogs text-purple-400"></i>
+                            Advanced Features
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="syntax-highlight glass-effect rounded-xl p-6">
+                                <h4 class="font-bold mb-3 text-gray-300">Pattern Matching</h4>
+                                <pre class="code-font text-sm"><code class="language-python">
+// Rust/Swift style pattern matching
+match response.status {
+    case 200: 
+        print("Success:", response.data);
+    case 404:
+        print("Not found");
+    case 500..599:
+        print("Server error:", response.error);
+    default:
+        print("Unknown status:", response.status);
+}
+
+// Destructuring
+let [x, y, z] = [1, 2, 3];
+let {name, age} = person;
+                                </code></pre>
+                            </div>
+                            
+                            <div class="syntax-highlight glass-effect rounded-xl p-6">
+                                <h4 class="font-bold mb-3 text-gray-300">Concurrency & Pipelines</h4>
+                                <pre class="code-font text-sm"><code class="language-python">
+// Pipe operator for functional programming
+let result = data
+    | filter(x => x > 0)
+    | map(x => x * 2)
+    | reduce((a, b) => a + b, 0);
+
+// Async/await with error handling
+try {
+    let data = await fetchData(url);
+    let processed = await processData(data);
+    return processed;
+} except error as e {
+    log.error("Failed:", e);
+    return null;
+}
+
+// List comprehensions
+let squares = [x*x for x in range(10)];
+let evenSquares = [x*x for x in range(10) if x % 2 == 0];
+                                </code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Keywords Table -->
+            <div class="mt-16 glass-effect rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-8">Complete Keyword Reference</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <div>
+                        <h4 class="font-bold text-gray-300 mb-3">Declarations</h4>
+                        <div class="space-y-2">
+                            <div class="type-badge bg-blue-500/20 text-blue-400">let</div>
+                            <div class="type-badge bg-blue-500/20 text-blue-400">const</div>
+                            <div class="type-badge bg-blue-500/20 text-blue-400">func</div>
+                            <div class="type-badge bg-blue-500/20 text-blue-400">class</div>
+                            <div class="type-badge bg-blue-500/20 text-blue-400">type</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-300 mb-3">Control Flow</h4>
+                        <div class="space-y-2">
+                            <div class="type-badge bg-purple-500/20 text-purple-400">if</div>
+                            <div class="type-badge bg-purple-500/20 text-purple-400">else</div>
+                            <div class="type-badge bg-purple-500/20 text-purple-400">elif</div>
+                            <div class="type-badge bg-purple-500/20 text-purple-400">while</div>
+                            <div class="type-badge bg-purple-500/20 text-purple-400">for</div>
+                            <div class="type-badge bg-purple-500/20 text-purple-400">in</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-300 mb-3">Concurrency</h4>
+                        <div class="space-y-2">
+                            <div class="type-badge bg-green-500/20 text-green-400">thread</div>
+                            <div class="type-badge bg-green-500/20 text-green-400">async</div>
+                            <div class="type-badge bg-green-500/20 text-green-400">await</div>
+                            <div class="type-badge bg-green-500/20 text-green-400">spawn</div>
+                            <div class="type-badge bg-green-500/20 text-green-400">mutex</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-300 mb-3">Error Handling</h4>
+                        <div class="space-y-2">
+                            <div class="type-badge bg-yellow-500/20 text-yellow-400">try</div>
+                            <div class="type-badge bg-yellow-500/20 text-yellow-400">except</div>
+                            <div class="type-badge bg-yellow-500/20 text-yellow-400">finally</div>
+                            <div class="type-badge bg-yellow-500/20 text-yellow-400">throw</div>
+                            <div class="type-badge bg-yellow-500/20 text-yellow-400">catch</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-300 mb-3">Modules</h4>
+                        <div class="space-y-2">
+                            <div class="type-badge bg-pink-500/20 text-pink-400">import</div>
+                            <div class="type-badge bg-pink-500/20 text-pink-400">from</div>
+                            <div class="type-badge bg-pink-500/20 text-pink-400">as</div>
+                            <div class="type-badge bg-pink-500/20 text-pink-400">export</div>
+                            <div class="type-badge bg-pink-500/20 text-pink-400">module</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-300 mb-3">Special</h4>
+                        <div class="space-y-2">
+                            <div class="type-badge bg-cyan-500/20 text-cyan-400">match</div>
+                            <div class="type-badge bg-cyan-500/20 text-cyan-400">case</div>
+                            <div class="type-badge bg-cyan-500/20 text-cyan-400">default</div>
+                            <div class="type-badge bg-cyan-500/20 text-cyan-400">new</div>
+                            <div class="type-badge bg-cyan-500/20 text-cyan-400">self</div>
+                            <div class="type-badge bg-cyan-500/20 text-cyan-400">return</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules & Standard Library -->
+    <section id="modules" class="py-24 px-6 bg-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Standard Library & Modules</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Comprehensive built-in modules for every task, from math to machine learning
+                </p>
+            </div>
+            
+            <div class="module-grid">
+                <!-- Math Module -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-red-500/20 to-red-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-square-root-alt text-red-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">math.ks</h3>
+                            <p class="text-sm text-gray-500">Advanced mathematics</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700/50">
+                            <span class="text-sm">math.sqrt(x)</span>
+                            <span class="text-xs text-gray-500">Square root</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700/50">
+                            <span class="text-sm">math.sin/cos/tan</span>
+                            <span class="text-xs text-gray-500">Trigonometry</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700/50">
+                            <span class="text-sm">math.log/exp</span>
+                            <span class="text-xs text-gray-500">Logarithms</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-sm">math.pi, math.e</span>
+                            <span class="text-xs text-gray-500">Constants</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- IO Module -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-blue-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-file-alt text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">io.ks</h3>
+                            <p class="text-sm text-gray-500">File & stream I/O</p>
+                        </div>
+                    </div>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>import io;
+
+// Read/write files
+let data = io.readFile("data.txt");
+io.writeFile("output.txt", data);
+
+// Stream processing
+let stream = io.openStream("log.txt");
+for line in stream.lines() {
+    process(line);
+}</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Network Module -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-network-wired text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">net.ks</h3>
+                            <p class="text-sm text-gray-500">Networking</p>
+                        </div>
+                    </div>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>import net;
+
+// HTTP client
+let client = net.HttpClient();
+let response = client.get("https://api.com");
+
+// TCP server
+let server = net.TcpServer(8080);
+server.onConnect((client) => {
+    client.send("Welcome!");
+});
+
+// WebSocket
+let ws = net.WebSocket("ws://echo.com");
+ws.onMessage((msg) => {
+    print("Received:", msg);
+});</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Database Module -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-yellow-500/20 to-yellow-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-database text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">db.ks</h3>
+                            <p class="text-sm text-gray-500">Database ORM</p>
+                        </div>
+                    </div>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>import db;
+
+// Connect to database
+let conn = db.connect("sqlite://data.db");
+
+// Define models
+model User {
+    id: int @primary @auto;
+    name: string;
+    email: string @unique;
+}
+
+// Query with type safety
+let users = conn.query(User)
+    .where(u => u.age > 18)
+    .orderBy("name")
+    .limit(10);</code></pre>
+                    </div>
+                </div>
+                
+                <!-- GUI Module -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500/20 to-purple-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-desktop text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">gui.ks</h3>
+                            <p class="text-sm text-gray-500">GUI Toolkit</p>
+                        </div>
+                    </div>
+                    <div class="syntax-highlight">
+                        <pre class="code-font text-xs"><code>import gui;
+
+// Create window
+let win = gui.Window("My App", 800, 600);
+
+// Add widgets
+win.add(gui.Button("Click Me", () => {
+    gui.alert("Button clicked!");
+}));
+
+win.add(gui.TextInput("Enter text"));
+win.add(gui.Slider(0, 100));
+
+// Layout with CSS-like syntax
+win.css(`
+    .button { background: blue; }
+`);</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Crypto Module -->
+                <div class="glass-effect rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-pink-500/20 to-pink-500/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-lock text-pink-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">crypto.ks</h3>
+                            <p class="text-sm text-gray-500">Cryptography</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700/50">
+                            <span class="text-sm">crypto.sha256(data)</span>
+                            <span class="text-xs text-gray-500">Hashing</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700/50">
+                            <span class="text-sm">crypto.aesEncrypt(data, key)</span>
+                            <span class="text-xs text-gray-500">Encryption</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700/50">
+                            <span class="text-sm">crypto.randomBytes(n)</span>
+                            <span class="text-xs text-gray-500">Random data</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-sm">crypto.jwtEncode/decode</span>
+                            <span class="text-xs text-gray-500">JWT tokens</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium">
+                    View complete module reference
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Creator -->
+    <section id="about" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">The Creator: pyLord</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    The visionary behind KentScript - bridging compiler theory with developer experience
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="flex items-start gap-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-24 h-24 rounded-2xl overflow-hidden border-4 border-blue-500/30">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=pyLord&backgroundColor=38bdf8&hairColor=000000&accessories=round&accessoriesProbability=100" 
+                                     alt="pyLord Avatar" class="w-full h-full">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">pyLord</h3>
+                            <p class="text-blue-400 font-medium mb-4">Lead Language Architect</p>
+                            <p class="text-gray-400">
+                                Anonymous developer with passion for compiler design, language theory, 
+                                and creating tools that empower developers. Focused on performance, 
+                                ergonomics, and bridging academic concepts with practical implementation.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h4 class="font-bold text-xl mb-6">Background & Expertise</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-graduation-cap text-blue-400"></i>
+                                <span>Compiler Design & Language Theory</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-microchip text-purple-400"></i>
+                                <span>Low-level Systems Programming</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-chart-line text-green-400"></i>
+                                <span>Performance Optimization</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-users text-yellow-400"></i>
+                                <span>Developer Experience Design</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h4 class="font-bold text-xl mb-6">Development Philosophy</h4>
+                        <p class="text-gray-400 mb-4">
+                            "A language should empower developers, not constrain them. Performance and 
+                            safety should coexist with beautiful syntax and modern features."
+                        </p>
+                        <div class="flex gap-4">
+                            <span class="language-tag bg-blue-500/20 text-blue-400">Simplicity</span>
+                            <span class="language-tag bg-purple-500/20 text-purple-400">Performance</span>
+                            <span class="language-tag bg-green-500/20 text-green-400">Safety</span>
+                            <span class="language-tag bg-yellow-500/20 text-yellow-400">Expressiveness</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-8">
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h4 class="font-bold text-xl mb-6">Project Timeline</h4>
+                        <div class="space-y-8">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="ml-4">
+                                    <h5 class="font-bold text-lg">February 2026</h5>
+                                    <p class="text-gray-400">KentScript v5.0 Alpha Release</p>
+                                    <p class="text-sm text-gray-500 mt-1">Bytecode compiler, threading, type system</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="ml-4">
+                                    <h5 class="font-bold text-lg">March 2026</h5>
+                                    <p class="text-gray-400">v5.1 Beta - GUI Toolkit</p>
+                                    <p class="text-sm text-gray-500 mt-1">Native GUI framework, widget library</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="ml-4">
+                                    <h5 class="font-bold text-lg">April 2026</h5>
+                                    <p class="text-gray-400">v6.0 Production Ready</p>
+                                    <p class="text-sm text-gray-500 mt-1">JIT compilation, GC system, package registry</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="ml-4">
+                                    <h5 class="font-bold text-lg">Mid 2026</h5>
+                                    <p class="text-gray-400">v7.0 - Advanced Features</p>
+                                    <p class="text-sm text-gray-500 mt-1">WASM target, LSP, borrow checker</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h4 class="font-bold text-xl mb-6">Connect & Follow</h4>
+                        <div class="flex gap-6">
+                            <a href="https://github.com/musikaalvin/kentscript" 
+                               class="w-12 h-12 rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-xl hover:text-white transition-all">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" 
+                               class="w-12 h-12 rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-xl hover:text-white transition-all">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" 
+                               class="w-12 h-12 rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-xl hover:text-white transition-all">
+                                <i class="fab fa-discord"></i>
+                            </a>
+                            <a href="#" 
+                               class="w-12 h-12 rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-xl hover:text-white transition-all">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" 
+                               class="w-12 h-12 rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-xl hover:text-white transition-all">
+                                <i class="fas fa-blog"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats & Performance -->
+    <section class="py-24 px-6 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Performance & Statistics</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Engineered for speed, designed for scalability
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="stats-card glass-effect rounded-2xl p-8 text-center">
+                    <div class="text-4xl font-bold mb-2 gradient-text">5-10x</div>
+                    <div class="text-gray-400 mb-4">Performance Boost</div>
+                    <p class="text-sm text-gray-500">With bytecode compilation vs interpreted Python</p>
+                </div>
+                
+                <div class="stats-card glass-effect rounded-2xl p-8 text-center">
+                    <div class="text-4xl font-bold mb-2 gradient-text">100k+</div>
+                    <div class="text-gray-400 mb-4">Lines/sec Parsing</div>
+                    <p class="text-sm text-gray-500">Advanced lexer with caching</p>
+                </div>
+                
+                <div class="stats-card glass-effect rounded-2xl p-8 text-center">
+                    <div class="text-4xl font-bold mb-2 gradient-text">32</div>
+                    <div class="text-gray-400 mb-4">Built-in Modules</div>
+                    <p class="text-sm text-gray-500">Comprehensive standard library</p>
+                </div>
+                
+                <div class="stats-card glass-effect rounded-2xl p-8 text-center">
+                    <div class="text-4xl font-bold mb-2 gradient-text">∞</div>
+                    <div class="text-gray-400 mb-4">Python Interop</div>
+                    <p class="text-sm text-gray-500">Full access to Python ecosystem</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 grid lg:grid-cols-2 gap-12">
+                <div class="glass-effect rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Compilation Pipeline</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center font-bold">
+                                1
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Source (.ks)</h4>
+                                <p class="text-sm text-gray-500">TypeScript-like syntax with extensions</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-bold">
+                                2
+                            </div>
+                            <div>
+                                <h4 class="font-bold">AST Generation</h4>
+                                <p class="text-sm text-gray-500">Abstract Syntax Tree with type annotations</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center font-bold">
+                                3
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Bytecode (.kbc)</h4>
+                                <p class="text-sm text-gray-500">Optimized instruction set for KVM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center font-bold">
+                                4
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Execution (JIT)</h4>
+                                <p class="text-sm text-gray-500">Just-In-Time compilation to machine code</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Memory Management</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-700/50">
+                            <span>Reference Counting</span>
+                            <span class="text-green-400">✓ Implemented</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-700/50">
+                            <span>Mark & Sweep GC</span>
+                            <span class="text-yellow-400">In Progress</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-700/50">
+                            <span>Generational GC</span>
+                            <span class="text-blue-400">Planned v6.0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3">
+                            <span>Manual Memory API</span>
+                            <span class="text-purple-400">Optional</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-gray-800/50 rounded-xl">
+                        <pre class="code-font text-xs"><code>// Manual memory control (optional)
+let ptr = gc.alloc(1024); // Allocate 1KB
+gc.write(ptr, data);
+let result = gc.read(ptr);
+gc.free(ptr); // Manual deallocation</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started -->
+    <section id="get-started" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Get Started in 60 Seconds</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Start building with KentScript today
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold mb-6">Installation</h3>
+                        <div class="space-y-4">
+                            <div class="syntax-highlight">
+                                <pre class="code-font text-sm"><code class="language-bash"># Clone the repository
+git clone https://github.com/musikaalvin/kentscript.git
+cd kentscript
+
+# Run directly (no installation needed)
+python kentscript.py
+
+# Or make executable
+chmod +x kentscript.py
+./kentscript.py</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold mb-6">Quick Example</h3>
+                        <div class="syntax-highlight">
+                            <pre class="code-font text-sm"><code class="language-python">// hello.ks
+func main() {
+    print("Hello, KentScript!");
+    
+    // Type inference
+    let name = "World";
+    let version = 5.0;
+    
+    // Collections
+    let numbers = [1, 2, 3, 4, 5];
+    let doubled = numbers.map(x => x * 2);
+    
+    print("Doubled:", doubled);
+}
+
+main();</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-8">
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold mb-6">Package Management</h3>
+                        <div class="syntax-highlight">
+                            <pre class="code-font text-sm"><code class="language-bash"># Install packages
+kpm install http-utils
+kpm install data-science@latest
+kpm install gui-toolkit --from=https://github.com/...
+
+# List installed packages
+kpm list
+
+# Update packages
+kpm update
+
+# Create your own package
+kpm init my-package
+kpm publish</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold mb-6">REPL & Development</h3>
+                        <div class="syntax-highlight">
+                            <pre class="code-font text-sm"><code class="language-bash"># Start interactive REPL
+python kentscript.py
+
+# Run a script
+python kentscript.py program.ks
+
+# Compile to bytecode
+ksc program.ks -o program.kbc
+
+# Execute bytecode
+kvm program.kbc
+
+# Debug mode
+python kentscript.py --debug program.ks
+
+# Profile performance
+python kentscript.py --profile program.ks</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation -->
+    <section id="donate" class="py-24 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glass-effect rounded-3xl p-12 border border-blue-500/20">
+                <h2 class="text-4xl font-bold mb-6">Support the Vision</h2>
+                <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                    KentScript is built with passion and commitment to open source. 
+                    Your support helps accelerate development of JIT, GUI toolkit, and production features.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="bg-gradient-to-br from-blue-500/10 to-blue-500/5 p-8 rounded-2xl border border-blue-500/20">
+                        <i class="fas fa-coffee text-4xl text-blue-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">Buy a Coffee</h4>
+                        <p class="text-gray-400 text-sm mb-4">One-time support for ongoing development</p>
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-bold transition">
+                            $5 - Support
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-500/10 to-purple-500/5 p-8 rounded-2xl border border-purple-500/20">
+                        <i class="fab fa-patreon text-4xl text-purple-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">Monthly Sponsor</h4>
+                        <p class="text-gray-400 text-sm mb-4">Regular support with exclusive updates</p>
+                        <button class="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 rounded-lg font-bold transition">
+                            $10/month
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-500/10 to-green-500/5 p-8 rounded-2xl border border-green-500/20">
+                        <i class="fab fa-github text-4xl text-green-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">GitHub Sponsor</h4>
+                        <p class="text-gray-400 text-sm mb-4">Support through GitHub Sponsors</p>
+                        <a href="https://github.com/sponsors" 
+                           class="block w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-bold transition">
+                            Sponsor
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-gray-500 text-sm">
+                        All funds go directly to development, hosting, and community growth.
+                        <br>
+                        Transparency reports available to sponsors.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center font-bold text-xl">
+                            K
+                        </div>
+                        <div>
+                            <div class="font-bold text-xl">KentScript</div>
+                            <div class="text-xs text-gray-500">v5.0 Alpha</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Next-generation programming language combining TypeScript syntax with Python power.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Resources</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">API Reference</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Examples</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Tutorials</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Community</h4>
+                    <ul class="space-y-3">
+                        <li><a href="https://github.com/musikaalvin/kentscript" class="text-gray-400 hover:text-white transition">GitHub</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Discord</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Twitter</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Stack Overflow</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contribute</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">MIT License</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Code of Conduct</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Security</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>© 2026 KentScript. Created with ❤️ by pyLord. All rights reserved.</p>
+                <p class="mt-2">"TypeScript syntax, Python power – the best of both worlds"</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Copy code functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const codeBlock = this.parentElement.querySelector('code');
+                const text = codeBlock.textContent;
+                
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalHTML = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    this.classList.add('bg-green-500/20', 'text-green-400');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                        this.classList.remove('bg-green-500/20', 'text-green-400');
+                    }, 2000);
+                });
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Prism syntax highlighting
+        if (typeof Prism !== 'undefined') {
+            Prism.highlightAll();
+        }
+        
+        // Mobile menu toggle
+        document.querySelector('button.md\\:hidden').addEventListener('click', function() {
+            const nav = document.querySelector('.hidden.md\\:flex');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+            nav.classList.toggle('flex-col');
+            nav.classList.toggle('absolute');
+            nav.classList.toggle('top-16');
+            nav.classList.toggle('left-0');
+            nav.classList.toggle('right-0');
+            nav.classList.toggle('bg-gray-900');
+            nav.classList.toggle('p-6');
+            nav.classList.toggle('gap-4');
+        });
+    </script>
+</body>
+</html>
