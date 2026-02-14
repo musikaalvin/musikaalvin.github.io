@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="KentScript v6.0 - Complete Language Documentation with Interactive IDE">
+    <title>KentScript v6.0 - Complete Language Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+</head>
+<body data-theme="light">
+    <!-- Animated Background -->
+    <div class="liquid-bg">
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <filter id="blur">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+                </filter>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#5B8DEF;stop-opacity:0.3" />
+                    <stop offset="100%" style="stop-color:#9D5BD2;stop-opacity:0.2" />
+                </linearGradient>
+            </defs>
+            <ellipse cx="200" cy="150" rx="150" ry="120" fill="url(#grad1)" filter="url(#blur)" class="liquid-shape" />
+            <ellipse cx="1000" cy="300" rx="180" ry="140" fill="url(#grad1)" filter="url(#blur)" class="liquid-shape" style="--delay: 2s" />
+            <ellipse cx="600" cy="700" rx="200" ry="150" fill="url(#grad1)" filter="url(#blur)" class="liquid-shape" style="--delay: 4s" />
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <div class="nav-brand">
+                <span class="brand-icon">⚡</span>
+                <span class="brand-text">KentScript v6.0</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            <!-- Theme Toggle -->
+            <div class="theme-toggle-wrapper">
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#overview" class="nav-item">Overview</a></li>
+                <li><a href="#intro" class="nav-item">Intro</a></li>
+                <li><a href="#core" class="nav-item">Core</a></li>
+                <li><a href="#functions" class="nav-item">Functions</a></li>
+                <li><a href="#oop" class="nav-item">OOP</a></li>
+                <li><a href="#async" class="nav-item">Async</a></li>
+                <li><a href="#modules" class="nav-item">Modules</a></li>
+                <li><a href="#playground" class="nav-item">IDE</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>📚 Documentation</h3>
+            <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <h4>Getting Started</h4>
+                <a href="#overview" onclick="closeSidebar()">Overview</a>
+                <a href="#intro" onclick="closeSidebar()">Introduction</a>
+                <a href="#install" onclick="closeSidebar()">Installation</a>
+                <a href="#features" onclick="closeSidebar()">Features</a>
+            </div>
+            <div class="menu-section">
+                <h4>Core Language</h4>
+                <a href="#core" onclick="closeSidebar()">Syntax & Types</a>
+                <a href="#datatypes" onclick="closeSidebar()">Data Types</a>
+                <a href="#variables" onclick="closeSidebar()">Variables</a>
+                <a href="#operators" onclick="closeSidebar()">Operators</a>
+                <a href="#strings" onclick="closeSidebar()">Strings</a>
+                <a href="#collections" onclick="closeSidebar()">Collections</a>
+            </div>
+            <div class="menu-section">
+                <h4>Functions</h4>
+                <a href="#functions" onclick="closeSidebar()">Function Basics</a>
+                <a href="#lambda" onclick="closeSidebar()">Lambda</a>
+                <a href="#closures" onclick="closeSidebar()">Closures</a>
+                <a href="#decorators" onclick="closeSidebar()">Decorators</a>
+            </div>
+            <div class="menu-section">
+                <h4>Advanced</h4>
+                <a href="#oop" onclick="closeSidebar()">OOP & Classes</a>
+                <a href="#inheritance" onclick="closeSidebar()">Inheritance</a>
+                <a href="#borrowing" onclick="closeSidebar()">Borrowing</a>
+                <a href="#patterns" onclick="closeSidebar()">Pattern Matching</a>
+            </div>
+            <div class="menu-section">
+                <h4>Concurrency</h4>
+                <a href="#async" onclick="closeSidebar()">Async/Await</a>
+                <a href="#threading" onclick="closeSidebar()">Threading</a>
+                <a href="#generators" onclick="closeSidebar()">Generators</a>
+            </div>
+            <div class="menu-section">
+                <h4>Ecosystem</h4>
+                <a href="#modules" onclick="closeSidebar()">Modules</a>
+                <a href="#stdlib" onclick="closeSidebar()">Standard Library</a>
+                <a href="#packages" onclick="closeSidebar()">Package Manager</a>
+            </div>
+            <div class="menu-section">
+                <h4>Tools</h4>
+                <a href="#playground" onclick="closeSidebar()">IDE</a>
+                <a href="#testing" onclick="closeSidebar()">Testing</a>
+                <a href="#api" onclick="closeSidebar()">API Reference</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero -->
+        <section class="hero glass-card" id="overview">
+            <div class="hero-content">
+                <span class="badge">✨ Complete Language Documentation</span>
+                <h1>KentScript</h1>
+                <p class="tagline">🚀 Python simplicity + 🦀 Rust safety + ⚡ JavaScript flexibility<br/>Production-ready with 25+ built-in modules</p>
+                <div class="cta-buttons">
+                    <a href="#playground" class="btn btn-primary">Try IDE</a>
+                    <a href="#intro" class="btn btn-secondary">Learn Now</a>
+                    <a href="#features" class="btn btn-tertiary">Features</a>
+                </div>
+            </div>
+            <div class="version-info">
+                <div class="info-item">
+                    <span class="label">Version</span>
+                    <span class="value">v6.0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Status</span>
+                    <span class="value">Production</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Coverage</span>
+                    <span class="value">90%+ Features</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="content-section">
+            <h2>📖 Introduction to KentScript v6.0</h2>
+            <div class="section-content glass-card">
+                <h3>What is KentScript?</h3>
+                <p>KentScript is a <strong>complete, production-ready hybrid programming language</strong> that combines the best features from Python, Rust, and JavaScript. It's designed for developers who want simplicity without sacrificing safety, performance, or power.</p>
+                
+                <h3>Core Philosophy</h3>
+                <ul class="feature-list">
+                    <li><strong>🐍 Pythonic Syntax</strong> - Simple, readable, expressive code that's easy to learn</li>
+                    <li><strong>🦀 Memory Safety</strong> - Rust-like borrow checker prevents null pointers and data races</li>
+                    <li><strong>⚡ High Performance</strong> - 340,000× faster with bytecode VM and JIT compilation</li>
+                    <li><strong>🎯 Multiple Paradigms</strong> - Functional, OOP, procedural, and reactive programming</li>
+                    <li><strong>📦 Rich Ecosystem</strong> - 25+ built-in modules (HTTP, JSON, Crypto, GUI, Database, etc.)</li>
+                    <li><strong>🔒 Security First</strong> - Built-in cryptography, SSL/TLS, and secure hashing</li>
+                    <li><strong>🧵 Concurrent</strong> - Full async/await, threading, and generator support</li>
+                    <li><strong>🎨 Flexible</strong> - Pattern matching, decorators, and metaprogramming</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Installation -->
+        <section id="install" class="content-section">
+            <h2>⬇️ Installation & Setup</h2>
+            <div class="section-content glass-card">
+                <h3>System Requirements</h3>
+                <ul class="feature-list">
+                    <li>Python 3.8 or higher</li>
+                    <li>2GB RAM minimum (4GB recommended)</li>
+                    <li>Linux, macOS, or Windows</li>
+                    <li>Git (for package management)</li>
+                </ul>
+                <h3>Installation Methods</h3>
+                <div class="code-block">
+                    <pre><code># Using pip (recommended)
+pip install kentscript
+
+# From source
+git clone https://github.com/musika/kentscript.git
+cd kentscript && python -m pip install -e .
+
+# Verify installation
+kentscript --version
+
+# Interactive REPL
+kentscript
+
+# Execute script
+kentscript script.ks</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="content-section">
+            <h2>✨ Core Features</h2>
+            <div class="features-grid">
+                <div class="feature glass-card">
+                    <span class="feature-icon">⚡</span>
+                    <h4>Lightning Fast</h4>
+                    <p>340,000x faster with bytecode VM</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🔒</span>
+                    <h4>Memory Safe</h4>
+                    <p>Rust-like borrow checker</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🎯</span>
+                    <h4>Pattern Matching</h4>
+                    <p>Exhaustive match/case control</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">📦</span>
+                    <h4>25+ Modules</h4>
+                    <p>HTTP, JSON, Crypto, GUI, DB</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🔄</span>
+                    <h4>Full Async/Await</h4>
+                    <p>Native async/await support</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🧬</span>
+                    <h4>OOP & Classes</h4>
+                    <p>Inheritance, mixins, protocols</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🎨</span>
+                    <h4>Decorators</h4>
+                    <p>AOP with function decoration</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🔐</span>
+                    <h4>Security</h4>
+                    <p>Crypto & SSL/TLS built-in</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Language -->
+        <section id="core" class="content-section">
+            <h2>📝 Core Language & Syntax</h2>
+            
+            <h3 id="datatypes">Data Types</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead>
+                        <tr><th>Type</th><th>Example</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>Integer</code></td><td><code>42, -10, 0xFF</code></td><td>Whole numbers (int, hex, binary)</td></tr>
+                        <tr><td><code>Float</code></td><td><code>3.14, 1e-5</code></td><td>Decimal numbers with scientific notation</td></tr>
+                        <tr><td><code>String</code></td><td><code>"hello", 'world'</code></td><td>Text data with interpolation</td></tr>
+                        <tr><td><code>Boolean</code></td><td><code>True, False</code></td><td>Logical true/false values</td></tr>
+                        <tr><td><code>List</code></td><td><code>[1, 2, 3]</code></td><td>Ordered mutable collection</td></tr>
+                        <tr><td><code>Tuple</code></td><td><code>(1, 2, 3)</code></td><td>Ordered immutable collection</td></tr>
+                        <tr><td><code>Dictionary</code></td><td><code>{"key": "val"}</code></td><td>Key-value pairs (hash map)</td></tr>
+                        <tr><td><code>Set</code></td><td><code>{1, 2, 3}</code></td><td>Unique unordered collection</td></tr>
+                        <tr><td><code>None</code></td><td><code>None</code></td><td>Null/nil value</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 id="variables">Variables & Declaration</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Immutable variable
+const PI = 3.14159;
+
+// Mutable variable
+let count = 0;
+count = 1;  // OK
+
+// Traditional var (mutable)
+var x = 5;
+var name = "Alice";
+
+// Type annotations (optional)
+let score: Int = 95;
+let items: List<Int> = [1, 2, 3];
+
+// String interpolation
+let x = 42;
+let message = f"Value is {x * 2}";  // "Value is 84"
+
+// Type conversion
+let str_num = str(42);        // "42"
+let int_str = int("123");     // 123
+let float_str = float("3.14"); // 3.14</code></pre>
+            </div>
+
+            <h3 id="operators">Operators & Expressions</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Arithmetic
+let a = 10 + 5;      // 15
+let b = 10 - 3;      // 7
+let c = 4 * 5;       // 20
+let d = 20 / 4;      // 5.0
+let e = 17 % 5;      // 2 (modulo)
+let f = 2 ** 8;      // 256 (exponent)
+
+// Comparison
+10 > 5;              // True
+10 <= 10;            // True
+"hello" == "hello";  // True
+None == None;        // True
+
+// Logical
+True and False;      // False
+True or False;       // True
+not True;            // False
+
+// Membership
+3 in [1, 2, 3];      // True
+"a" in "abc";        // True
+
+// String operations
+"Hello" + " " + "World";  // "Hello World"
+"ab" * 3;                 // "ababab"</code></pre>
+            </div>
+
+            <h3 id="strings">String Operations</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>let text = "KentScript";
+
+// Indexing and slicing
+text[0];              // 'K'
+text[-1];             // 't'
+text[0:4];            // "Kent"
+text[::2];            // "KnsrpR"
+text[::-1];           // "tpircstneyK" (reverse)
+
+// String methods
+text.upper();         // "KENTSCRIPT"
+text.lower();         // "kentscript"
+text.capitalize();    // "Kentscript"
+text.strip();         // Remove whitespace
+text.split(" ");      // Split into list
+", ".join(["a", "b"]); // "a, b"
+text.replace("Script", "Code"); // "KentCode"
+
+// String testing
+text.startswith("Kent");   // True
+text.endswith("Script");   // True
+text.contains("Script");   // True
+len(text);                 // 10
+text.find("Script");       // 4 (index)</code></pre>
+            </div>
+
+            <h3 id="collections">Collections & Slicing</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Lists
+var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+nums[0];              // 1 (first)
+nums[-1];             // 10 (last)
+nums[1:4];            // [2, 3, 4]
+nums[::2];            // [1, 3, 5, 7, 9] (every 2nd)
+nums[::-1];           // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+nums.append(11);      // Add to end
+nums.insert(0, 0);    // Insert at index
+nums.pop();           // Remove and return last
+nums.remove(5);       // Remove first occurrence
+len(nums);            // Length
+sorted(nums);         // Sort (new list)
+
+// Dictionaries
+let person = {
+    "name": "Alice",
+    "age": 30,
+    "email": "alice@example.com"
+};
+person["name"];       // "Alice"
+person.get("age", 0); // 30 (with default)
+person.keys();        // ["name", "age", "email"]
+person.values();      // ["Alice", 30, "alice@example.com"]
+
+// Sets
+let unique = {1, 2, 3};
+unique.add(4);
+1 in unique;          // True
+unique | {3, 4, 5};   // Union: {1, 2, 3, 4, 5}
+unique & {3, 4, 5};   // Intersection: {3}</code></pre>
+            </div>
+
+            <h3 id="control">Control Flow</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// If-elif-else
+if (x > 10) {
+    print("Greater than 10");
+} else if (x > 0) {
+    print("Positive");
+} else {
+    print("Zero or negative");
+}
+
+// Ternary operator
+let status = x > 0 ? "positive" : "non-positive";
+
+// For loops
+for i in range(5) {
+    print(i);  // 0, 1, 2, 3, 4
+}
+
+for x in [1, 2, 3] {
+    print(x);
+}
+
+// While loops
+var counter = 0;
+while (counter < 5) {
+    print(counter);
+    counter = counter + 1;
+}
+
+// Break and continue
+for i in range(10) {
+    if (i == 5) {
+        break;     // Exit loop
+    }
+    if (i == 2) {
+        continue;  // Skip to next
+    }
+    print(i);  // Prints 0, 1, 3, 4
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Functions -->
+        <section id="functions" class="content-section">
+            <h2>🔧 Functions & Functional Programming</h2>
+            
+            <h3>Function Definition</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Basic function
+function add(a, b) {
+    return a + b;
+}
+
+// With type hints
+function multiply(a: Int, b: Int) -> Int {
+    return a * b;
+}
+
+// Default parameters
+function greet(name: String, greeting: String = "Hello") {
+    print(greeting + ", " + name);
+}
+
+// Variable arguments
+function sum_all(...args) {
+    var total = 0;
+    for arg in args {
+        total = total + arg;
+    }
+    return total;
+}
+
+// Recursive function
+function factorial(n: Int) -> Int {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}</code></pre>
+            </div>
+
+            <h3 id="lambda">Lambda Functions</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Single parameter
+var square = lambda x -> x * x;
+square(5);  // 25
+
+// Multiple parameters
+var add = lambda x, y -> x + y;
+add(3, 4);  // 7
+
+// Lambda with complex logic
+var max_func = lambda x, y -> if (x > y) { x } else { y };
+
+// Using with map/filter
+var numbers = [1, 2, 3, 4, 5];
+var doubled = map(lambda x -> x * 2, numbers);  // [2, 4, 6, 8, 10]
+var evens = filter(lambda x -> x % 2 == 0, numbers);  // [2, 4]
+var total = reduce(lambda a, b -> a + b, numbers);    // 15</code></pre>
+            </div>
+
+            <h3 id="closures">Closures & Higher-Order Functions</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Closure capturing outer scope
+function make_counter() {
+    var count = 0;
+    return function() {
+        count = count + 1;
+        return count;
+    };
+}
+
+let counter = make_counter();
+counter();  // 1
+counter();  // 2
+counter();  // 3
+
+// Higher-order function (function returning function)
+function make_multiplier(n) {
+    return lambda x -> x * n;
+}
+
+let times_three = make_multiplier(3);
+times_three(7);  // 21
+
+// Function composition
+function compose(f, g) {
+    return lambda x -> f(g(x));
+}
+
+let double = lambda x -> x * 2;
+let add_one = lambda x -> x + 1;
+let double_then_add = compose(add_one, double);
+double_then_add(5);  // 11 (5*2 + 1)</code></pre>
+            </div>
+
+            <h3 id="decorators">Decorators</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Simple decorator
+function timing_decorator(fn) {
+    return lambda ...args -> {
+        import time;
+        var start = time.time();
+        var result = fn(...args);
+        var elapsed = time.time() - start;
+        print("Time: " + elapsed + "ms");
+        return result;
+    };
+}
+
+@timing_decorator
+function slow_operation() {
+    var sum = 0;
+    for i in range(1000000) {
+        sum = sum + i;
+    }
+    return sum;
+}
+
+// Decorator with arguments
+function repeat_n(times) {
+    return lambda fn -> {
+        return lambda ...args -> {
+            var result = None;
+            for i in range(times) {
+                result = fn(...args);
+            }
+            return result;
+        };
+    };
+}
+
+@repeat_n(3)
+function say_hello() {
+    print("Hello!");
+}</code></pre>
+            </div>
+
+            <h3>Functional Programming Features</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Map: transform each element
+var numbers = [1, 2, 3, 4, 5];
+var squared = map(lambda x -> x * x, numbers);  // [1, 4, 9, 16, 25]
+
+// Filter: keep matching elements
+var evens = filter(lambda x -> x % 2 == 0, numbers);  // [2, 4]
+
+// Reduce: combine to single value
+var sum = reduce(lambda a, b -> a + b, numbers);  // 15
+
+// Generators (lazy evaluation)
+function fibonacci() {
+    var a = 0;
+    var b = 1;
+    yield a;
+    while (True) {
+        yield b;
+        var temp = a + b;
+        a = b;
+        b = temp;
+    }
+}
+
+let fib = fibonacci();
+for i in range(10) {
+    print(next(fib));  // 0, 1, 1, 2, 3, 5, 8, 13, 21, 34
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- OOP -->
+        <section id="oop" class="content-section">
+            <h2>🧬 Object-Oriented Programming</h2>
+            
+            <h3>Classes & Objects</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Class definition
+class Person {
+    function __init__(name: String, age: Int) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    function greet() {
+        print("Hello, I'm " + this.name);
+    }
+    
+    function birthday() {
+        this.age = this.age + 1;
+        print(this.name + " is now " + this.age);
+    }
+}
+
+// Create instance
+let person = new Person("Alice", 25);
+person.greet();       // "Hello, I'm Alice"
+person.birthday();    // "Alice is now 26"</code></pre>
+            </div>
+
+            <h3 id="inheritance">Inheritance & Polymorphism</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Base class
+class Animal {
+    function __init__(name: String) {
+        this.name = name;
+    }
+    
+    function speak() {
+        print(this.name + " makes a sound");
+    }
+}
+
+// Derived class
+class Dog extends Animal {
+    function __init__(name: String, breed: String) {
+        super(name);
+        this.breed = breed;
+    }
+    
+    function speak() {
+        print(this.name + " barks!");
+    }
+}
+
+// Multi-level inheritance
+class ServiceDog extends Dog {
+    function assist(person) {
+        print(this.name + " assists " + person);
+    }
+}
+
+// Usage
+let dog = new Dog("Rex", "Golden Retriever");
+dog.speak();         // "Rex barks!"
+
+let service_dog = new ServiceDog("Max", "Labrador");
+service_dog.speak(); // "Max barks!"
+service_dog.assist("John");</code></pre>
+            </div>
+
+            <h3 id="borrowing">Borrowing & Memory Safety</h3>
+            <div class="section-content glass-card">
+                <p>KentScript uses a Rust-like ownership system to prevent memory errors without garbage collection overhead:</p>
+                <div class="code-showcase">
+                    <pre><code>// Ownership: values have one owner
+var list1 = [1, 2, 3];
+var list2 = list1;  // Moves ownership
+// list1 is no longer valid
+
+// Borrowing: temporary access without ownership
+var data = [1, 2, 3];
+function read_data(data: &List<Int>) {
+    print(data[0]);
+}
+read_data(&data);  // Borrow immutably
+print(data);       // Still valid!
+
+// Mutable borrowing
+mut numbers = [1, 2, 3];
+function modify_data(data: &mut List<Int>) {
+    data.append(4);
+}
+modify_data(&mut numbers);
+print(numbers);    // [1, 2, 3, 4]
+
+// Clone for explicit copying
+var original = [1, 2, 3];
+var copy = original.clone();
+print(original);   // [1, 2, 3] (still valid)</code></pre>
+                </div>
+                <ul class="feature-list">
+                    <li><strong>Ownership</strong> - Each value has one owner at a time</li>
+                    <li><strong>Borrowing</strong> - Functions can borrow immutably or mutably</li>
+                    <li><strong>References</strong> - Use &T for immutable, &mut T for mutable references</li>
+                    <li><strong>Automatic Cleanup</strong> - Memory freed when value drops (RAII)</li>
+                </ul>
+            </div>
+
+            <h3 id="patterns">Pattern Matching</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Basic match
+function describe(value) {
+    match (value) {
+        case 0: {
+            print("Zero");
+        }
+        case 1 | 2 | 3: {
+            print("Small positive");
+        }
+        case x if x > 10: {
+            print("Large: " + x);
+        }
+        default: {
+            print("Other: " + value);
+        }
+    }
+}
+
+// Pattern matching with destructuring
+let point = (10, 20);
+match (point) {
+    case (0, 0) -> print("Origin")
+    case (0, y) -> print("On y-axis: " + y)
+    case (x, 0) -> print("On x-axis: " + x)
+    case (x, y) -> print("Point: (" + x + ", " + y + ")")
+}
+
+// List pattern matching
+let list = [1, 2, 3];
+match (list) {
+    case [] -> print("Empty")
+    case [x] -> print("Single: " + x)
+    case [x, y] -> print("Pair: " + x + ", " + y)
+    case [x, ...rest] -> print("First: " + x + ", Rest: " + rest)
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Async & Concurrency -->
+        <section id="async" class="content-section">
+            <h2>⚡ Async/Await & Concurrency</h2>
+            
+            <h3>Async Functions</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>import requests;
+
+// Define async function
+async function fetch_data(url: String) -> String {
+    let response = await requests.get(url);
+    return response.text();
+}
+
+// Using async functions
+async function load_multiple() {
+    let url1 = "https://api.example.com/data1";
+    let url2 = "https://api.example.com/data2";
+    
+    let data1 = await fetch_data(url1);
+    let data2 = await fetch_data(url2);
+    
+    return [data1, data2];
+}
+
+// Concurrent execution (parallel)
+async function load_concurrent() {
+    let url1 = "https://api.example.com/data1";
+    let url2 = "https://api.example.com/data2";
+    
+    let results = await asyncio.gather(
+        fetch_data(url1),
+        fetch_data(url2)
+    );
+    
+    return results;
+}</code></pre>
+            </div>
+
+            <h3 id="threading">Threading & Multi-core</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Thread pool execution
+let thread_pool = ThreadPool(4);  // 4 worker threads
+
+function process_item(n: Int) -> Int {
+    return n * n;
+}
+
+// Map function across threads
+let results = thread_pool.map(process_item, [1, 2, 3, 4, 5]);
+print(results);  // [1, 4, 9, 16, 25]
+
+// Lock mechanism for thread safety
+let lock = Lock();
+var shared_counter = 0;
+
+function increment_counter() {
+    with lock {
+        shared_counter = shared_counter + 1;
+    }
+}
+
+// Launch threads
+let thread1 = Thread(increment_counter);
+let thread2 = Thread(increment_counter);
+
+thread1.start();
+thread2.start();
+thread1.join();
+thread2.join();
+
+print(shared_counter);  // 2 (safely incremented)</code></pre>
+            </div>
+
+            <h3 id="generators">Generators & Yield</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Simple generator
+function count_up_to(n) {
+    var i = 0;
+    while (i < n) {
+        yield i;
+        i = i + 1;
+    }
+}
+
+for value in count_up_to(5) {
+    print(value);  // 0, 1, 2, 3, 4
+}
+
+// Infinite generator
+function infinite_counter() {
+    var i = 0;
+    while (True) {
+        yield i;
+        i = i + 1;
+    }
+}
+
+// Fibonacci generator
+function fibonacci_gen() {
+    var a = 0;
+    var b = 1;
+    yield a;
+    
+    while (True) {
+        yield b;
+        var temp = a + b;
+        a = b;
+        b = temp;
+    }
+}
+
+// Generator composition
+function flatten(nested) {
+    for item in nested {
+        if (isinstance(item, list)) {
+            yield from flatten(item);
+        } else {
+            yield item;
+        }
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Modules & Standard Library -->
+        <section id="modules" class="content-section">
+            <h2>📦 Modules & Standard Library</h2>
+            <p>KentScript includes 25+ built-in modules covering common tasks:</p>
+            <div class="modules-grid">
+                <div class="module-card glass-card">
+                    <h4>🌐 Network</h4>
+                    <ul>
+                        <li>http - HTTP/REST APIs</li>
+                        <li>requests - Client requests</li>
+                        <li>socket - TCP/UDP sockets</li>
+                        <li>websocket - WebSocket support</li>
+                        <li>ssl - TLS/SSL encryption</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>💾 Data</h4>
+                    <ul>
+                        <li>json - JSON encoding/decoding</li>
+                        <li>csv - CSV file handling</li>
+                        <li>sqlite - SQLite database ORM</li>
+                        <li>pickle - Object serialization</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>🔐 Security</h4>
+                    <ul>
+                        <li>crypto - Encryption (AES, RSA)</li>
+                        <li>hashlib - Hash functions (MD5, SHA)</li>
+                        <li>hmac - Message authentication</li>
+                        <li>random - Cryptographically secure RNG</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>📁 File System</h4>
+                    <ul>
+                        <li>os - OS operations</li>
+                        <li>path - Path handling</li>
+                        <li>fs - File operations</li>
+                        <li>zip - Compression</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>🎨 GUI</h4>
+                    <ul>
+                        <li>gui - Desktop applications</li>
+                        <li>canvas - 2D graphics/drawing</li>
+                        <li>event - Event handling</li>
+                        <li>style - CSS-like styling</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>⏱️ Utilities</h4>
+                    <ul>
+                        <li>time - Time operations</li>
+                        <li>datetime - Date/Time manipulation</li>
+                        <li>math - Mathematical functions</li>
+                        <li>random - Random number generation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="stdlib">Standard Library Examples</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>// Math module
+import math;
+print(math.pi);           // 3.14159...
+print(math.sqrt(16));     // 4.0
+print(math.sin(0));       // 0.0
+print(math.factorial(5)); // 120
+
+// JSON module
+import json;
+var data = {"name": "Alice", "age": 30};
+var json_str = json.dumps(data);
+var parsed = json.loads(json_str);
+
+// HTTP module
+import requests;
+let response = requests.get("https://api.example.com/data");
+let data = response.json();
+
+// Time module
+import time;
+print(time.time());       // Current timestamp
+time.sleep(1);            // Sleep 1 second
+
+// File I/O
+with open("data.txt", "r") as file {
+    let content = file.read();
+}
+
+// Database
+import db;
+let conn = db.connect("data.db");
+conn.execute("INSERT INTO users (name) VALUES (?)", ("Alice",));
+conn.commit();</code></pre>
+            </div>
+
+            <h3 id="packages">Package Manager (KPM)</h3>
+            <div class="section-content glass-card">
+                <p>KentScript includes a built-in package manager for managing dependencies:</p>
+                <div class="code-block">
+                    <pre><code>// kpm.json - Project configuration
+{
+    "name": "my-project",
+    "version": "1.0.0",
+    "description": "My KentScript project",
+    "main": "src/main.ks",
+    "dependencies": {
+        "requests": "^2.28.0",
+        "sqlite": "^1.0.0",
+        "dotenv": "^0.10.0"
+    },
+    "dev-dependencies": {
+        "pytest": "^7.0.0",
+        "coverage": "^6.0.0"
+    },
+    "scripts": {
+        "start": "ks src/main.ks",
+        "test": "ks test/run_tests.ks",
+        "build": "ks build.ks"
+    }
+}
+
+// Command line usage
+kpm init              # Initialize new project
+kpm install           # Install dependencies
+kpm install requests  # Install specific package
+kpm remove requests   # Remove package
+kpm run start         # Run script
+kpm publish           # Publish to registry</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Handling -->
+        <section id="errors" class="content-section">
+            <h2>🛡️ Error Handling</h2>
+            <div class="code-showcase glass-card">
+                <pre><code>// Try-catch-finally
+try {
+    let result = risky_operation();
+    print("Result: " + result);
+} catch (error) {
+    print("Error: " + error);
+} finally {
+    print("Cleanup");
+}
+
+// Multiple catch blocks
+try {
+    let value = parse_int("not a number");
+} catch (ValueError e) {
+    print("Invalid number: " + e);
+} catch (TypeError e) {
+    print("Type error: " + e);
+} catch (error) {
+    print("Unknown error: " + error);
+}
+
+// Custom exception
+class ValidationError extends Error {
+    function __init__(message: String, field: String) {
+        this.message = message;
+        this.field = field;
+    }
+}
+
+// Raising exceptions
+function validate_email(email: String) {
+    if (not email.contains("@")) {
+        raise new ValidationError(
+            "Invalid email format",
+            "email"
+        );
+    }
+}
+
+// Try-else (success case)
+try {
+    let result = operation();
+} catch (error) {
+    print("Failed: " + error);
+} else {
+    print("Success: " + result);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Testing & Advanced -->
+        <section id="testing" class="content-section">
+            <h2>🧪 Testing & Advanced Features</h2>
+            <div class="code-showcase glass-card">
+                <pre><code>import unittest;
+
+// Unit test class
+class TestMathUtils extends unittest.TestCase {
+    function setUp() {
+        // Setup before each test
+        this.math = MathUtils();
+    }
+    
+    function test_add() {
+        let result = this.math.add(2, 3);
+        this.assertEqual(result, 5);
+    }
+    
+    function test_divide_by_zero() {
+        this.assertRaises(ZeroDivisionError, lambda -> {
+            this.math.divide(10, 0);
+        });
+    }
+    
+    function tearDown() {
+        // Cleanup after each test
+    }
+}
+
+// Run tests
+if (__name__ == "__main__") {
+    unittest.main();
+}
+
+// Profiling
+@profile
+function slow_operation() {
+    var total = 0;
+    for i in range(1000000) {
+        total = total + i;
+    }
+    return total;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- IDE Playground -->
+        <section id="playground" class="content-section">
+            <h2>🎮 Interactive Playground</h2>
+            <p>Write and execute KentScript code with real-time syntax highlighting:</p>
+
+            <div class="playground">
+                <!-- Editor -->
+                <div class="editor-panel">
+                    <div class="panel-header">
+                        <span>📝 Code Editor</span>
+                        <div class="editor-controls">
+                            <select id="examplesSelect" onchange="loadExample()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(91, 141, 239, 0.3); background: rgba(91, 141, 239, 0.1); color: #e2e8f0; font-family: 'Inter', sans-serif;">
+                                <option value="">📚 Load Example...</option>
+                                <option value="hello">Hello World</option>
+                                <option value="variables">Variables & Types</option>
+                                <option value="functions">Functions</option>
+                                <option value="fibonacci">Fibonacci (Recursive)</option>
+                                <option value="loops">Loops & Control</option>
+                                <option value="classes">Classes & OOP</option>
+                                <option value="lists">Lists & Collections</option>
+                                <option value="pattern">Pattern Matching</option>
+                                <option value="lambda">Lambda & Map/Filter</option>
+                                <option value="closure">Closures</option>
+                            </select>
+                            <button onclick="formatCode()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">✏️</button>
+                            <button onclick="copyCode()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">📋</button>
+                            <button onclick="clearCode()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️</button>
+                        </div>
+                    </div>
+                    <textarea id="codeEditor" placeholder="Write KentScript code here..." style="flex: 1; background: #1a1a2e; color: #10b981; border: none; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; resize: none; outline: none;"></textarea>
+                    <div class="editor-footer">
+                        <span>📝 <span id="lineCount">1</span> lines</span>
+                        <span>⌨️ <span id="charCount">0</span> chars</span>
+                        <span>🔧 <span id="funcCount">0</span> functions</span>
+                    </div>
+                </div>
+
+                <!-- Output -->
+                <div class="output-panel">
+                    <div class="panel-header" style="display: flex; justify-content: space-between;">
+                        <span>📤 Output Console</span>
+                        <button onclick="clearOutput()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️</button>
+                    </div>
+                    <div id="output" style="flex: 1; padding: 20px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #666;">Output will appear here...</div>
+                    <div class="editor-footer">
+                        <span>⏱️ <span id="execTime">0</span>ms</span>
+                        <span><span id="status">Ready</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="runCode()" style="margin-top: 20px; padding: 14px 40px; background: #5B8DEF; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; max-width: 300px; display: block; margin-left: auto; margin-right: auto;">
+                ▶️ Run Code (Ctrl+Enter)
+            </button>
+        </section>
+
+        <!-- API Reference -->
+        <section id="api" class="content-section">
+            <h2>📚 Complete API Reference</h2>
+            
+            <h3>Global Functions</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead>
+                        <tr><th>Function</th><th>Parameters</th><th>Returns</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>print()</code></td><td>*values</td><td>None</td><td>Output to console</td></tr>
+                        <tr><td><code>len()</code></td><td>collection</td><td>Int</td><td>Get length of collection</td></tr>
+                        <tr><td><code>range()</code></td><td>start, stop, step</td><td>Iterator</td><td>Generate number sequence</td></tr>
+                        <tr><td><code>type()</code></td><td>value</td><td>Type</td><td>Get type of value</td></tr>
+                        <tr><td><code>isinstance()</code></td><td>value, type</td><td>Bool</td><td>Check type membership</td></tr>
+                        <tr><td><code>str(), int(), float()</code></td><td>value</td><td>Converted</td><td>Type conversion</td></tr>
+                        <tr><td><code>list(), dict(), set()</code></td><td>iterable</td><td>Collection</td><td>Create collection</td></tr>
+                        <tr><td><code>min(), max()</code></td><td>iterable</td><td>Value</td><td>Find min/max element</td></tr>
+                        <tr><td><code>sum()</code></td><td>iterable, start=0</td><td>Number</td><td>Sum all elements</td></tr>
+                        <tr><td><code>sorted()</code></td><td>iterable, reverse=False</td><td>List</td><td>Create sorted list</td></tr>
+                        <tr><td><code>map()</code></td><td>fn, iterable</td><td>Iterator</td><td>Apply function to all</td></tr>
+                        <tr><td><code>filter()</code></td><td>fn, iterable</td><td>Iterator</td><td>Keep matching elements</td></tr>
+                        <tr><td><code>reduce()</code></td><td>fn, iterable, init</td><td>Value</td><td>Combine all elements</td></tr>
+                        <tr><td><code>enumerate()</code></td><td>iterable</td><td>Iterator</td><td>Index and value pairs</td></tr>
+                        <tr><td><code>zip()</code></td><td>*iterables</td><td>Iterator</td><td>Parallel iteration</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>String Methods</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead><tr><th>Method</th><th>Parameters</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.upper()</code></td><td></td><td>String</td><td>Uppercase version</td></tr>
+                        <tr><td><code>.lower()</code></td><td></td><td>String</td><td>Lowercase version</td></tr>
+                        <tr><td><code>.capitalize()</code></td><td></td><td>String</td><td>Capitalize first letter</td></tr>
+                        <tr><td><code>.strip()</code></td><td></td><td>String</td><td>Remove whitespace</td></tr>
+                        <tr><td><code>.split()</code></td><td>sep=' '</td><td>List</td><td>Split into parts</td></tr>
+                        <tr><td><code>.join()</code></td><td>iterable</td><td>String</td><td>Join list into string</td></tr>
+                        <tr><td><code>.replace()</code></td><td>old, new, count=-1</td><td>String</td><td>Replace substrings</td></tr>
+                        <tr><td><code>.find()</code></td><td>substring</td><td>Int</td><td>Find index (or -1)</td></tr>
+                        <tr><td><code>.startswith()</code></td><td>prefix</td><td>Bool</td><td>Check prefix</td></tr>
+                        <tr><td><code>.endswith()</code></td><td>suffix</td><td>Bool</td><td>Check suffix</td></tr>
+                        <tr><td><code>.contains()</code></td><td>substring</td><td>Bool</td><td>Check if contains</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>List Methods</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead><tr><th>Method</th><th>Parameters</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.append(x)</code></td><td>element</td><td>Add element to end</td></tr>
+                        <tr><td><code>.pop(index=-1)</code></td><td>index</td><td>Remove and return element</td></tr>
+                        <tr><td><code>.insert(i, x)</code></td><td>index, element</td><td>Insert at position</td></tr>
+                        <tr><td><code>.remove(x)</code></td><td>element</td><td>Remove first occurrence</td></tr>
+                        <tr><td><code>.clear()</code></td><td></td><td>Remove all elements</td></tr>
+                        <tr><td><code>.sort()</code></td><td>reverse=False</td><td>Sort in place</td></tr>
+                        <tr><td><code>.reverse()</code></td><td></td><td>Reverse in place</td></tr>
+                        <tr><td><code>.index(x)</code></td><td>element</td><td>Find index of element</td></tr>
+                        <tr><td><code>.count(x)</code></td><td>element</td><td>Count occurrences</td></tr>
+                        <tr><td><code>.copy()</code></td><td></td><td>Create shallow copy</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dictionary Methods</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead><tr><th>Method</th><th>Parameters</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.keys()</code></td><td></td><td>List</td><td>Get all keys</td></tr>
+                        <tr><td><code>.values()</code></td><td></td><td>List</td><td>Get all values</td></tr>
+                        <tr><td><code>.items()</code></td><td></td><td>List</td><td>Get key-value pairs</td></tr>
+                        <tr><td><code>.get(key, default)</code></td><td>key, default=None</td><td>Value</td><td>Get value with default</td></tr>
+                        <tr><td><code>.pop(key)</code></td><td>key</td><td>Value</td><td>Remove and return value</td></tr>
+                        <tr><td><code>.update(other)</code></td><td>dict</td><td>None</td><td>Update with other dict</td></tr>
+                        <tr><td><code>.clear()</code></td><td></td><td>None</td><td>Remove all items</td></tr>
+                        <tr><td><code>.copy()</code></td><td></td><td>Dict</td><td>Create shallow copy</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Advanced Topics -->
+        <section class="content-section" style="background: linear-gradient(135deg, rgba(91, 141, 239, 0.1), rgba(157, 91, 210, 0.1)); padding: 40px; border-radius: 12px; border: 1px solid rgba(91, 141, 239, 0.2);">
+            <h2>🎓 Advanced Topics</h2>
+            <div class="features-grid">
+                <div class="feature glass-card">
+                    <h4>🔍 Reflection & Metaprogramming</h4>
+                    <p>Dynamic attribute access, type introspection, and runtime code generation</p>
+                </div>
+                <div class="feature glass-card">
+                    <h4>💾 Context Managers</h4>
+                    <p>Resource management with __enter__ and __exit__ (with statement)</p>
+                </div>
+                <div class="feature glass-card">
+                    <h4>🧬 Type System</h4>
+                    <p>Type hints, generics, protocols, and structural typing</p>
+                </div>
+                <div class="feature glass-card">
+                    <h4>⚙️ Caching & Memoization</h4>
+                    <p>Built-in caching, LRU cache, and performance optimization</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Reference -->
+        <section class="content-section">
+            <h2>⚡ Quick Reference Card</h2>
+            <div class="section-content glass-card">
+                <h3>Essential Syntax</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Variables</h4>
+                        <code>const x = 10;</code><br>
+                        <code>let y = 20;</code><br>
+                        <code>var z = 30;</code>
+                    </div>
+                    <div>
+                        <h4>Functions</h4>
+                        <code>function add(a, b) { return a + b; }</code><br>
+                        <code>var sq = lambda x -> x * x;</code>
+                    </div>
+                    <div>
+                        <h4>Control Flow</h4>
+                        <code>if (x > 0) { ... }</code><br>
+                        <code>for i in range(10) { ... }</code><br>
+                        <code>while (x > 0) { ... }</code>
+                    </div>
+                    <div>
+                        <h4>Collections</h4>
+                        <code>[1, 2, 3]  // List</code><br>
+                        <code>{"a": 1}   // Dict</code><br>
+                        <code>(1, 2)     // Tuple</code>
+                    </div>
+                    <div>
+                        <h4>Classes</h4>
+                        <code>class MyClass { function __init__(x) { ... } }</code><br>
+                        <code>let obj = new MyClass(5);</code>
+                    </div>
+                    <div>
+                        <h4>Pattern Matching</h4>
+                        <code>match (x) {</code><br>
+                        <code>  case 1 -> print("one")</code><br>
+                        <code>  case _ -> print("other")</code><br>
+                        <code>}</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🚀 KentScript</h4>
+                    <p>Modern scripting language combining simplicity, safety, and performance.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>📚 Learn</h4>
+                    <a href="#intro">Introduction</a>
+                    <a href="#core">Core Language</a>
+                    <a href="#functions">Functions</a>
+                    <a href="#oop">OOP</a>
+                    <a href="#modules">Modules</a>
+                </div>
+                <div class="footer-section">
+                    <h4>🛠️ Tools</h4>
+                    <a href="#playground">IDE</a>
+                    <a href="#api">API Reference</a>
+                    <a href="#testing">Testing</a>
+                </div>
+                <div class="footer-section">
+                    <h4>🌐 Community</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">Discord</a>
+                    <a href="#">Forum</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 KentScript v6.0. Complete Language Documentation. Made with ❤️ by Musika Alvin.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CodeMirror -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
