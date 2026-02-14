@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KentScript - Professional IDE & Interpreter Platform">
+    <title>KentScript IDE - Production Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.5/split.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- MAIN IDE LAYOUT -->
+    <div id="app" class="ide-container">
+        
+        <!-- TOP NAVIGATION BAR -->
+        <nav class="ide-navbar">
+            <div class="navbar-left">
+                <div class="logo-section">
+                    <i class="fas fa-code"></i>
+                    <span class="logo-text">KentScript</span>
+                    <span class="version-badge">v6.0</span>
+                </div>
+                
+                <div class="breadcrumb">
+                    <span id="currentFile">Untitled.ks</span>
+                    <span class="modified-indicator" id="modifiedIndicator"></span>
+                </div>
+            </div>
+
+            <div class="navbar-center">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Quick search code..." id="quickSearch">
+                    <kbd>⌘K</kbd>
+                </div>
+            </div>
+
+            <div class="navbar-right">
+                <button class="navbar-btn" id="btnShare" title="Share Code">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <button class="navbar-btn" id="btnSettings" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="navbar-btn" id="btnTheme" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="navbar-btn active" id="btnFullscreen" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- MAIN IDE CONTENT -->
+        <div class="ide-content">
+            
+            <!-- SIDEBAR (LEFT) -->
+            <aside class="ide-sidebar">
+                <div class="sidebar-tabs">
+                    <button class="sidebar-tab active" data-tab="explorer" title="Explorer">
+                        <i class="fas fa-folder-open"></i>
+                    </button>
+                    <button class="sidebar-tab" data-tab="search" title="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="sidebar-tab" data-tab="docs" title="Documentation">
+                        <i class="fas fa-book"></i>
+                    </button>
+                    <button class="sidebar-tab" data-tab="extensions" title="Extensions">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </button>
+                </div>
+
+                <div class="sidebar-content">
+                    <!-- EXPLORER TAB -->
+                    <div class="sidebar-panel active" id="explorerPanel">
+                        <div class="panel-header">
+                            <h3>Explorer</h3>
+                            <div class="panel-actions">
+                                <button class="icon-btn" id="btnNewFile" title="New File">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="icon-btn" id="btnOpenFolder" title="Open Folder">
+                                    <i class="fas fa-folder"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="file-tree" id="fileTree">
+                            <div class="file-item">
+                                <i class="fas fa-file-code"></i> Untitled.ks
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOCS TAB -->
+                    <div class="sidebar-panel" id="docsPanel">
+                        <div class="panel-header">
+                            <h3>Documentation</h3>
+                        </div>
+                        <div class="docs-list" id="docsList">
+                            <a href="#" class="doc-link" onclick="goToPage('guide')">Language Guide</a>
+                            <a href="#" class="doc-link" onclick="goToPage('syntax')">Syntax Reference</a>
+                            <a href="#" class="doc-link" onclick="goToPage('stdlib')">Standard Library</a>
+                            <a href="#" class="doc-link" onclick="goToPage('api')">API Reference</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- EDITOR AREA -->
+            <div class="editor-section">
+                <!-- EDITOR TOOLBAR -->
+                <div class="editor-toolbar">
+                    <div class="toolbar-group">
+                        <button class="tool-btn" id="btnNew" title="New File (Ctrl+N)">
+                            <i class="fas fa-file"></i>
+                        </button>
+                        <button class="tool-btn" id="btnOpen" title="Open File (Ctrl+O)">
+                            <i class="fas fa-folder-open"></i>
+                        </button>
+                        <button class="tool-btn" id="btnSave" title="Save File (Ctrl+S)">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button class="tool-btn" id="btnDownload" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-group separator">
+                        <button class="tool-btn" id="btnFormat" title="Format Code (Alt+Shift+F)">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <button class="tool-btn" id="btnValidate" title="Validate Code (Ctrl+Shift+V)">
+                            <i class="fas fa-check-circle"></i>
+                        </button>
+                        <button class="tool-btn" id="btnAnalyze" title="Analyze Code">
+                            <i class="fas fa-chart-bar"></i>
+                        </button>
+                    </div>
+
+                    <div class="toolbar-group separator">
+                        <select id="templateSelect" class="tool-select">
+                            <option value="">Load Template...</option>
+                            <option value="hello_world">Hello World</option>
+                            <option value="function">Function Example</option>
+                            <option value="class">Class Example</option>
+                            <option value="loop">Loop Example</option>
+                        </select>
+                    </div>
+
+                    <div class="toolbar-group separator">
+                        <button class="tool-btn primary" id="btnRun" title="Run Code (Ctrl+Enter)">
+                            <i class="fas fa-play"></i> Run
+                        </button>
+                        <button class="tool-btn" id="btnStop" title="Stop Execution">
+                            <i class="fas fa-stop-circle"></i> Stop
+                        </button>
+                    </div>
+
+                    <div class="toolbar-spacer"></div>
+
+                    <div class="toolbar-stats">
+                        <span class="stat-item">
+                            <i class="fas fa-list"></i>
+                            <span id="lineCount">0</span>
+                        </span>
+                        <span class="stat-item">
+                            <i class="fas fa-keyboard"></i>
+                            <span id="charCount">0</span>
+                        </span>
+                        <span class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="execTime">0ms</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- EDITOR & MINIMAP -->
+                <div class="editor-wrapper">
+                    <textarea id="codeEditor" class="code-editor" spellcheck="false"></textarea>
+                    <div class="minimap" id="minimap"></div>
+                </div>
+            </div>
+
+            <!-- OUTPUT PANEL (RIGHT) -->
+            <div class="output-section">
+                <!-- OUTPUT TABS -->
+                <div class="output-tabs">
+                    <button class="output-tab active" data-panel="console">
+                        <i class="fas fa-terminal"></i> Console
+                    </button>
+                    <button class="output-tab" data-panel="errors">
+                        <i class="fas fa-exclamation-triangle"></i> Errors
+                    </button>
+                    <button class="output-tab" data-panel="warnings">
+                        <i class="fas fa-exclamation-circle"></i> Warnings
+                    </button>
+                    <button class="output-tab" data-panel="analysis">
+                        <i class="fas fa-chart-line"></i> Analysis
+                    </button>
+                </div>
+
+                <!-- OUTPUT CONTENT -->
+                <div class="output-content">
+                    <!-- CONSOLE OUTPUT -->
+                    <div class="output-panel active" id="consolePanel">
+                        <div class="console-output" id="consoleOutput">
+                            <div class="console-message welcome">
+                                <span class="timestamp">[14:30:21]</span>
+                                <span class="text">Welcome to KentScript IDE v6.0</span>
+                            </div>
+                            <div class="console-message info">
+                                <span class="timestamp">[14:30:21]</span>
+                                <span class="text">Ready to execute code. Click Run or press Ctrl+Enter</span>
+                            </div>
+                        </div>
+                        <div class="console-input-wrapper">
+                            <input type="text" id="consoleInput" class="console-input" placeholder="Type command...">
+                        </div>
+                    </div>
+
+                    <!-- ERRORS PANEL -->
+                    <div class="output-panel" id="errorsPanel">
+                        <div class="errors-list" id="errorsList"></div>
+                    </div>
+
+                    <!-- WARNINGS PANEL -->
+                    <div class="output-panel" id="warningsPanel">
+                        <div class="warnings-list" id="warningsList"></div>
+                    </div>
+
+                    <!-- ANALYSIS PANEL -->
+                    <div class="output-panel" id="analysisPanel">
+                        <div class="analysis-content" id="analysisContent">
+                            <div class="stat-box">
+                                <h4>Code Statistics</h4>
+                                <p>Write code and click Analyze to see metrics</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OUTPUT TOOLBAR -->
+                <div class="output-toolbar">
+                    <button class="output-btn" id="btnClearConsole" title="Clear Console">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="output-btn" id="btnCopyOutput" title="Copy Output">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <span class="output-status" id="outputStatus"></span>
+                    <span class="flex-spacer"></span>
+                    <button class="output-btn" id="btnToggleOutput" title="Toggle Output Panel">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- SETTINGS MODAL -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-header">
+            <h2>Settings</h2>
+            <button class="close-btn" data-modal="settingsModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="settings-group">
+                <label>Font Size</label>
+                <input type="range" id="fontSizeSlider" min="10" max="20" value="14">
+                <span id="fontSizeValue">14px</span>
+            </div>
+            <div class="settings-group">
+                <label>
+                    <input type="checkbox" id="wordWrap"> Word Wrap
+                </label>
+            </div>
+            <div class="settings-group">
+                <label>
+                    <input type="checkbox" id="lineNumbers" checked> Line Numbers
+                </label>
+            </div>
+            <div class="settings-group">
+                <label>Theme</label>
+                <select id="themeSelect">
+                    <option value="dark">Dark</option>
+                    <option value="light">Light</option>
+                    <option value="auto">Auto</option>
+                </select>
+            </div>
+            <div class="settings-group">
+                <label>Tab Size</label>
+                <input type="number" id="tabSizeInput" min="2" max="8" value="4">
+            </div>
+            <div class="settings-group">
+                <label>
+                    <input type="checkbox" id="autoSave"> Auto-save on Run
+                </label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" onclick="closeModal('settingsModal')">Done</button>
+        </div>
+    </div>
+
+    <!-- SHARE MODAL -->
+    <div class="modal" id="shareModal">
+        <div class="modal-header">
+            <h2>Share Code</h2>
+            <button class="close-btn" data-modal="shareModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="share-option">
+                <button class="share-btn" id="shareGithub">
+                    <i class="fab fa-github"></i> GitHub Gist
+                </button>
+            </div>
+            <div class="share-option">
+                <button class="share-btn" id="shareLink">
+                    <i class="fas fa-link"></i> Copy Link
+                </button>
+            </div>
+            <div class="share-option">
+                <button class="share-btn" id="shareQR">
+                    <i class="fas fa-qrcode"></i> QR Code
+                </button>
+            </div>
+            <div id="shareResult" class="share-result"></div>
+        </div>
+    </div>
+
+    <!-- KEYBOARD SHORTCUTS HELP -->
+    <div class="modal" id="shortcutsModal">
+        <div class="modal-header">
+            <h2>Keyboard Shortcuts</h2>
+            <button class="close-btn" data-modal="shortcutsModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="shortcuts-table">
+                <tr>
+                    <td><kbd>Ctrl+Enter</kbd></td>
+                    <td>Run Code</td>
+                </tr>
+                <tr>
+                    <td><kbd>Ctrl+S</kbd></td>
+                    <td>Save File</td>
+                </tr>
+                <tr>
+                    <td><kbd>Ctrl+N</kbd></td>
+                    <td>New File</td>
+                </tr>
+                <tr>
+                    <td><kbd>Alt+Shift+F</kbd></td>
+                    <td>Format Code</td>
+                </tr>
+                <tr>
+                    <td><kbd>Ctrl+Shift+V</kbd></td>
+                    <td>Validate Code</td>
+                </tr>
+                <tr>
+                    <td><kbd>Ctrl+/</kbd></td>
+                    <td>Toggle Comment</td>
+                </tr>
+                <tr>
+                    <td><kbd>Tab</kbd></td>
+                    <td>Indent</td>
+                </tr>
+                <tr>
+                    <td><kbd>Shift+Tab</kbd></td>
+                    <td>Unindent</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.5/split.min.js"></script>
+    <script src="js/ide.js"></script>
+</body>
+</html>
