@@ -1,0 +1,3225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="KentScript v6.0 - Complete Language Documentation with Interactive IDE">
+    <title>KentScript v6.0 - Complete Language Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+</head>
+<body data-theme="light">
+    <!-- Animated Background -->
+    <div class="liquid-bg">
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <filter id="blur">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+                </filter>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#5B8DEF;stop-opacity:0.3" />
+                    <stop offset="100%" style="stop-color:#9D5BD2;stop-opacity:0.2" />
+                </linearGradient>
+            </defs>
+            <ellipse cx="200" cy="150" rx="150" ry="120" fill="url(#grad1)" filter="url(#blur)" class="liquid-shape" />
+            <ellipse cx="1000" cy="300" rx="180" ry="140" fill="url(#grad1)" filter="url(#blur)" class="liquid-shape" style="--delay: 2s" />
+            <ellipse cx="600" cy="700" rx="200" ry="150" fill="url(#grad1)" filter="url(#blur)" class="liquid-shape" style="--delay: 4s" />
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <div class="nav-brand">
+                <span class="brand-icon">⚡</span>
+                <span class="brand-text">KentScript v6.0</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            <!-- Theme Toggle -->
+            <div class="theme-toggle-wrapper">
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#overview" class="nav-item">Overview</a></li>
+                <li><a href="#intro" class="nav-item">Intro</a></li>
+                <li><a href="#core" class="nav-item">Core</a></li>
+                <li><a href="#functions" class="nav-item">Functions</a></li>
+                <li><a href="#oop" class="nav-item">OOP</a></li>
+                <li><a href="#async" class="nav-item">Async</a></li>
+                <li><a href="#modules" class="nav-item">Modules</a></li>
+                <li><a href="#playground" class="nav-item">IDE</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>📚 Documentation</h3>
+            <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <h4>Getting Started</h4>
+                <a href="#overview" onclick="closeSidebar()">Overview</a>
+                <a href="#intro" onclick="closeSidebar()">Introduction</a>
+                <a href="#install" onclick="closeSidebar()">Installation</a>
+                <a href="#features" onclick="closeSidebar()">Features</a>
+            </div>
+            <div class="menu-section">
+                <h4>Core Language</h4>
+                <a href="#core" onclick="closeSidebar()">Syntax & Types</a>
+                <a href="#datatypes" onclick="closeSidebar()">Data Types</a>
+                <a href="#variables" onclick="closeSidebar()">Variables</a>
+                <a href="#operators" onclick="closeSidebar()">Operators</a>
+                <a href="#strings" onclick="closeSidebar()">Strings</a>
+                <a href="#collections" onclick="closeSidebar()">Collections</a>
+            </div>
+            <div class="menu-section">
+                <h4>Functions</h4>
+                <a href="#functions" onclick="closeSidebar()">Function Basics</a>
+                <a href="#lambda" onclick="closeSidebar()">Lambda</a>
+                <a href="#closures" onclick="closeSidebar()">Closures</a>
+                <a href="#decorators" onclick="closeSidebar()">Decorators</a>
+            </div>
+            <div class="menu-section">
+                <h4>Advanced</h4>
+                <a href="#oop" onclick="closeSidebar()">OOP & Classes</a>
+                <a href="#inheritance" onclick="closeSidebar()">Inheritance</a>
+                <a href="#borrowing" onclick="closeSidebar()">Borrowing</a>
+                <a href="#patterns" onclick="closeSidebar()">Pattern Matching</a>
+                <a href="#unsafe-hardware" onclick="closeSidebar()">Unsafe & Hardware</a>
+                <a href="#borrow-detailed" onclick="closeSidebar()">Borrow Checking</a>
+                <a href="#patterns-advanced" onclick="closeSidebar()">Design Patterns</a>
+                <a href="#metaprogramming" onclick="closeSidebar()">Metaprogramming</a>
+            </div>
+            <div class="menu-section">
+                <h4>Concurrency</h4>
+                <a href="#async" onclick="closeSidebar()">Async/Await</a>
+                <a href="#threading" onclick="closeSidebar()">Threading</a>
+                <a href="#generators" onclick="closeSidebar()">Generators</a>
+                <a href="#threading-advanced" onclick="closeSidebar()">Advanced Threading</a>
+            </div>
+            <div class="menu-section">
+                <h4>Ecosystem</h4>
+                <a href="#modules" onclick="closeSidebar()">Modules</a>
+                <a href="#stdlib" onclick="closeSidebar()">Standard Library</a>
+                <a href="#packages" onclick="closeSidebar()">Package Manager</a>
+                <a href="#modules-comprehensive" onclick="closeSidebar()">Custom Modules</a>
+            </div>
+            <div class="menu-section">
+                <h4>Tools & Optimization</h4>
+                <a href="#playground" onclick="closeSidebar()">IDE</a>
+                <a href="#testing" onclick="closeSidebar()">Testing</a>
+                <a href="#api" onclick="closeSidebar()">API Reference</a>
+                <a href="#perf-advanced" onclick="closeSidebar()">Performance</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero -->
+        <section class="hero glass-card" id="overview">
+            <div class="hero-content">
+                <span class="badge">✨ Complete Language Documentation</span>
+                <h1>KentScript</h1>
+                <p class="tagline">🚀 Python simplicity + 🦀 Rust safety + ⚡ JavaScript flexibility<br/>Production-ready with 25+ built-in modules</p>
+                <div class="cta-buttons">
+                    <a href="#playground" class="btn btn-primary">Try IDE</a>
+                    <a href="#intro" class="btn btn-secondary">Learn Now</a>
+                    <a href="#features" class="btn btn-tertiary">Features</a>
+                </div>
+            </div>
+            <div class="version-info">
+                <div class="info-item">
+                    <span class="label">Version</span>
+                    <span class="value">v6.0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Status</span>
+                    <span class="value">Production</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Coverage</span>
+                    <span class="value">90%+ Features</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section id="intro" class="content-section">
+            <h2>📖 Introduction to KentScript v6.0</h2>
+            <div class="section-content glass-card">
+                <h3>What is KentScript?</h3>
+                <p>KentScript is a <strong>complete, production-ready hybrid programming language</strong> that combines the best features from Python, Rust, and JavaScript. It's designed for developers who want simplicity without sacrificing safety, performance, or power.</p>
+                
+                <h3>Core Philosophy</h3>
+                <ul class="feature-list">
+                    <li><strong>🐍 Pythonic Syntax</strong> - Simple, readable, expressive code that's easy to learn</li>
+                    <li><strong>🦀 Memory Safety</strong> - Rust-like borrow checker prevents null pointers and data races</li>
+                    <li><strong>⚡ High Performance</strong> - 340,000× faster with bytecode VM and JIT compilation</li>
+                    <li><strong>🎯 Multiple Paradigms</strong> - Functional, OOP, procedural, and reactive programming</li>
+                    <li><strong>📦 Rich Ecosystem</strong> - 25+ built-in modules (HTTP, JSON, Crypto, GUI, Database, etc.)</li>
+                    <li><strong>🔒 Security First</strong> - Built-in cryptography, SSL/TLS, and secure hashing</li>
+                    <li><strong>🧵 Concurrent</strong> - Full async/await, threading, and generator support</li>
+                    <li><strong>🎨 Flexible</strong> - Pattern matching, decorators, and metaprogramming</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Installation -->
+        <section id="install" class="content-section">
+            <h2>⬇️ Installation & Setup</h2>
+            <div class="section-content glass-card">
+                <h3>System Requirements</h3>
+                <ul class="feature-list">
+                    <li>Python 3.8 or higher</li>
+                    <li>2GB RAM minimum (4GB recommended)</li>
+                    <li>Linux, macOS, or Windows</li>
+                    <li>Git (for package management)</li>
+                </ul>
+                <h3>Installation Methods</h3>
+                <div class="code-block">
+                    <pre><code># Using pip (recommended)
+pip install kentscript
+
+# From source
+git clone https://github.com/musika/kentscript.git
+cd kentscript && python -m pip install -e .
+
+# Verify installation
+kentscript --version
+
+# Interactive REPL
+kentscript
+
+# Execute script
+kentscript script.ks</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="content-section">
+            <h2>✨ Core Features</h2>
+            <div class="features-grid">
+                <div class="feature glass-card">
+                    <span class="feature-icon">⚡</span>
+                    <h4>Lightning Fast</h4>
+                    <p>340,000x faster with bytecode VM</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🔒</span>
+                    <h4>Memory Safe</h4>
+                    <p>Rust-like borrow checker</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🎯</span>
+                    <h4>Pattern Matching</h4>
+                    <p>Exhaustive match/case control</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">📦</span>
+                    <h4>25+ Modules</h4>
+                    <p>HTTP, JSON, Crypto, GUI, DB</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🔄</span>
+                    <h4>Full Async/Await</h4>
+                    <p>Native async/await support</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🧬</span>
+                    <h4>OOP & Classes</h4>
+                    <p>Inheritance, mixins, protocols</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🎨</span>
+                    <h4>Decorators</h4>
+                    <p>AOP with function decoration</p>
+                </div>
+                <div class="feature glass-card">
+                    <span class="feature-icon">🔐</span>
+                    <h4>Security</h4>
+                    <p>Crypto & SSL/TLS built-in</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Language -->
+        <section id="core" class="content-section">
+            <h2>📝 Core Language & Syntax</h2>
+            
+            <h3 id="datatypes">Data Types</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead>
+                        <tr><th>Type</th><th>Example</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>Integer</code></td><td><code>42, -10, 0xFF</code></td><td>Whole numbers (int, hex, binary)</td></tr>
+                        <tr><td><code>Float</code></td><td><code>3.14, 1e-5</code></td><td>Decimal numbers with scientific notation</td></tr>
+                        <tr><td><code>String</code></td><td><code>"hello", 'world'</code></td><td>Text data with interpolation</td></tr>
+                        <tr><td><code>Boolean</code></td><td><code>True, False</code></td><td>Logical true/false values</td></tr>
+                        <tr><td><code>List</code></td><td><code>[1, 2, 3]</code></td><td>Ordered mutable collection</td></tr>
+                        <tr><td><code>Tuple</code></td><td><code>(1, 2, 3)</code></td><td>Ordered immutable collection</td></tr>
+                        <tr><td><code>Dictionary</code></td><td><code>{"key": "val"}</code></td><td>Key-value pairs (hash map)</td></tr>
+                        <tr><td><code>Set</code></td><td><code>{1, 2, 3}</code></td><td>Unique unordered collection</td></tr>
+                        <tr><td><code>None</code></td><td><code>None</code></td><td>Null/nil value</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 id="variables">Variables & Declaration</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Immutable variable
+const PI = 3.14159;
+
+:: Mutable variable
+let count = 0;
+count = 1;  :: OK
+
+:: Traditional let (mutable)
+let x = 5;
+let name = "Alice";
+
+:: Type annotations (optional)
+let score: Int = 95;
+let items: List<Int> = [1, 2, 3];
+
+:: String interpolation
+let x = 42;
+let message = f"Value is {x * 2}";  :: "Value is 84"
+
+:: Type conversion
+let str_num = str(42);        :: "42"
+let int_str = int("123");     :: 123
+let float_str = float("3.14"); :: 3.14</code></pre>
+            </div>
+
+            <h3 id="operators">Operators & Expressions</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample(':: Arithmetic\nlet a = 10 + 5;      :: 15\nlet b = 10 - 3;      :: 7\nlet c = 4 * 5;       :: 20\nlet d = 20 / 4;      :: 5.0\nlet e = 17 % 5;      :: 2 (modulo)\nlet f = 2 ** 8;      :: 256 (exponent)\n\n:: Comparison\n10 > 5;              :: True\n10 <= 10;            :: True\n"hello" == "hello";  :: True\nNone == None;        :: True\n\n:: Logical\nTrue and False;      :: False\nTrue or False;       :: True\nnot True;            :: False\n\n:: Membership\n3 in [1, 2, 3];      :: True\n"a" in "abc";        :: True\n\n:: String operations\n"Hello" + " " + "World";  :: "Hello World"\n"ab" * 3;                 :: "ababab"')">📋 Copy</button>
+                    <pre><code>:: Arithmetic
+let a = 10 + 5;      :: 15
+let b = 10 - 3;      :: 7
+let c = 4 * 5;       :: 20
+let d = 20 / 4;      :: 5.0
+let e = 17 % 5;      :: 2 (modulo)
+let f = 2 ** 8;      :: 256 (exponent)
+
+:: Comparison
+10 > 5;              :: True
+10 <= 10;            :: True
+"hello" == "hello";  :: True
+None == None;        :: True
+
+:: Logical
+True and False;      :: False
+True or False;       :: True
+not True;            :: False
+
+:: Membership
+3 in [1, 2, 3];      :: True
+"a" in "abc";        :: True
+
+:: String operations
+"Hello" + " " + "World";  :: "Hello World"
+"ab" * 3;                 :: "ababab"</code></pre>
+                </div>
+            </div>
+
+            <h3 id="strings">String Operations</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>let text = "KentScript";
+
+:: Indexing and slicing
+text[0];              :: 'K'
+text[-1];             :: 't'
+text[0:4];            :: "Kent"
+text[::2];            :: "KnsrpR"
+text[::-1];           :: "tpircstneyK" (reverse)
+
+:: String methods
+text.upper();         :: "KENTSCRIPT"
+text.lower();         :: "kentscript"
+text.capitalize();    :: "Kentscript"
+text.strip();         :: Remove whitespace
+text.split(" ");      :: Split into list
+", ".join(["a", "b"]); :: "a, b"
+text.replace("Script", "Code"); :: "KentCode"
+
+:: String testing
+text.startswith("Kent");   :: True
+text.endswith("Script");   :: True
+text.contains("Script");   :: True
+len(text);                 :: 10
+text.find("Script");       :: 4 (index)</code></pre>
+            </div>
+
+            <h3 id="collections">Collections & Slicing</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample(':: Lists\nlet nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\nnums[0];              :: 1 (first)\nnums[-1];             :: 10 (last)\nnums[1:4];            :: [2, 3, 4]\nnums[::2];            :: [1, 3, 5, 7, 9] (every 2nd)\nnums[::-1];           :: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]\n\nnums.append(11);      :: Add to end\nnums.insert(0, 0);    :: Insert at index\nnums.pop();           :: Remove and return last\nnums.remove(5);       :: Remove first occurrence\nlen(nums);            :: Length\nsorted(nums);         :: Sort (new list)\n\n:: Dictionaries\nlet person = {\n    "name": "Alice",\n    "age": 30,\n    "email": "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b2bfbab0b693b6abb2bea3bfb6fdb0bcbe">[email&#160;protected]</a>"\n};\nperson["name"];       :: "Alice"\nperson.get("age", 0); :: 30 (with default)\nperson.keys();        :: ["name", "age", "email"]\nperson.values();      :: ["Alice", 30, "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f4f9fcf6f0d5f0edf4f8e5f9f0bbf6faf8">[email&#160;protected]</a>"]\n\n:: Sets\nlet unique = {1, 2, 3};\nunique.add(4);\n1 in unique;          :: True\nunique | {3, 4, 5};   :: Union: {1, 2, 3, 4, 5}\nunique & {3, 4, 5};   :: Intersection: {3}')">📋 Copy</button>
+                    <pre><code>:: Lists
+let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+nums[0];              :: 1 (first)
+nums[-1];             :: 10 (last)
+nums[1:4];            :: [2, 3, 4]
+nums[::2];            :: [1, 3, 5, 7, 9] (every 2nd)
+nums[::-1];           :: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+nums.append(11);      :: Add to end
+nums.insert(0, 0);    :: Insert at index
+nums.pop();           :: Remove and return last
+nums.remove(5);       :: Remove first occurrence
+len(nums);            :: Length
+sorted(nums);         :: Sort (new list)
+
+:: Dictionaries
+let person = {
+    "name": "Alice",
+    "age": 30,
+    "email": "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b2bfbab0b693b6abb2bea3bfb6fdb0bcbe">[email&#160;protected]</a>"
+};
+person["name"];       :: "Alice"
+person.get("age", 0); :: 30 (with default)
+person.keys();        :: ["name", "age", "email"]
+person.values();      :: ["Alice", 30, "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f4f9fcf6f0d5f0edf4f8e5f9f0bbf6faf8">[email&#160;protected]</a>"]
+
+:: Sets
+let unique = {1, 2, 3};
+unique.add(4);
+1 in unique;          :: True
+unique | {3, 4, 5};   :: Union: {1, 2, 3, 4, 5}
+unique & {3, 4, 5};   :: Intersection: {3}</code></pre>
+                </div>
+            </div>
+
+            <h3 id="control">Control Flow</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample(':: If-elif-else\nif (x > 10) {\n    print("Greater than 10");\n} else if (x > 0) {\n    print("Positive");\n} else {\n    print("Zero or negative");\n}\n\n:: Ternary operator\nlet status = x > 0 ? "positive" : "non-positive";\n\n:: For loops\nfor i in range(5) {\n    print(i);  :: 0, 1, 2, 3, 4\n}\n\nfor x in [1, 2, 3] {\n    print(x);\n}\n\n:: While loops\nlet counter = 0;\nwhile (counter < 5) {\n    print(counter);\n    counter = counter + 1;\n}\n\n:: Break and continue\nfor i in range(10) {\n    if (i == 5) {\n        break;     :: Exit loop\n    }\n    if (i == 2) {\n        continue;  :: Skip to next\n    }\n    print(i);  :: Prints 0, 1, 3, 4\n}')">📋 Copy</button>
+                    <pre><code>:: If-elif-else
+if (x > 10) {
+    print("Greater than 10");
+} else if (x > 0) {
+    print("Positive");
+} else {
+    print("Zero or negative");
+}
+
+:: Ternary operator
+let status = x > 0 ? "positive" : "non-positive";
+
+:: For loops
+for i in range(5) {
+    print(i);  :: 0, 1, 2, 3, 4
+}
+
+for x in [1, 2, 3] {
+    print(x);
+}
+
+:: While loops
+let counter = 0;
+while (counter < 5) {
+    print(counter);
+    counter = counter + 1;
+}
+
+:: Break and continue
+for i in range(10) {
+    if (i == 5) {
+        break;     :: Exit loop
+    }
+    if (i == 2) {
+        continue;  :: Skip to next
+    }
+    print(i);  :: Prints 0, 1, 3, 4
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Functions -->
+        <section id="functions" class="content-section">
+            <h2>🔧 Functions & Functional Programming</h2>
+            
+            <h3>Function Definition</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample(':: Basic function\nfunction add(a, b) {\n    return a + b;\n}\n\n:: With type hints\nfunction multiply(a: Int, b: Int) -> Int {\n    return a * b;\n}\n\n:: Default parameters\nfunction greet(name: String, greeting: String = "Hello") {\n    print(greeting + ", " + name);\n}\n\n:: Variable arguments\nfunction sum_all(...args) {\n    let total = 0;\n    for arg in args {\n        total = total + arg;\n    }\n    return total;\n}\n\n:: Recursive function\nfunction factorial(n: Int) -> Int {\n    if (n <= 1) {\n        return 1;\n    }\n    return n * factorial(n - 1);\n}')">📋 Copy</button>
+                    <pre><code>:: Basic function
+function add(a, b) {
+    return a + b;
+}
+
+:: With type hints
+function multiply(a: Int, b: Int) -> Int {
+    return a * b;
+}
+
+:: Default parameters
+function greet(name: String, greeting: String = "Hello") {
+    print(greeting + ", " + name);
+}
+
+:: Variable arguments
+function sum_all(...args) {
+    let total = 0;
+    for arg in args {
+        total = total + arg;
+    }
+    return total;
+}
+
+:: Recursive function
+function factorial(n: Int) -> Int {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}</code></pre>
+                </div>
+            </div>
+
+            <h3 id="lambda">Lambda Functions</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Single parameter
+let square = lambda x -> x * x;
+square(5);  :: 25
+
+:: Multiple parameters
+let add = lambda x, y -> x + y;
+add(3, 4);  :: 7
+
+:: Lambda with complex logic
+let max_func = lambda x, y -> if (x > y) { x } else { y };
+
+:: Using with map/filter
+let numbers = [1, 2, 3, 4, 5];
+let doubled = map(lambda x -> x * 2, numbers);  :: [2, 4, 6, 8, 10]
+let evens = filter(lambda x -> x % 2 == 0, numbers);  :: [2, 4]
+let total = reduce(lambda a, b -> a + b, numbers);    :: 15</code></pre>
+            </div>
+
+            <h3 id="closures">Closures & Higher-Order Functions</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Closure capturing outer scope
+function make_counter() {
+    let count = 0;
+    return function() {
+        count = count + 1;
+        return count;
+    };
+}
+
+let counter = make_counter();
+counter();  :: 1
+counter();  :: 2
+counter();  :: 3
+
+:: Higher-order function (function returning function)
+function make_multiplier(n) {
+    return lambda x -> x * n;
+}
+
+let times_three = make_multiplier(3);
+times_three(7);  :: 21
+
+:: Function composition
+function compose(f, g) {
+    return lambda x -> f(g(x));
+}
+
+let double = lambda x -> x * 2;
+let add_one = lambda x -> x + 1;
+let double_then_add = compose(add_one, double);
+double_then_add(5);  :: 11 (5*2 + 1)</code></pre>
+            </div>
+
+            <h3 id="decorators">Decorators</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Simple decorator
+function timing_decorator(fn) {
+    return lambda ...args -> {
+        import time;
+        let start = time.time();
+        let result = fn(...args);
+        let elapsed = time.time() - start;
+        print("Time: " + elapsed + "ms");
+        return result;
+    };
+}
+
+@timing_decorator
+function slow_operation() {
+    let sum = 0;
+    for i in range(1000000) {
+        sum = sum + i;
+    }
+    return sum;
+}
+
+:: Decorator with arguments
+function repeat_n(times) {
+    return lambda fn -> {
+        return lambda ...args -> {
+            let result = None;
+            for i in range(times) {
+                result = fn(...args);
+            }
+            return result;
+        };
+    };
+}
+
+@repeat_n(3)
+function say_hello() {
+    print("Hello!");
+}</code></pre>
+            </div>
+
+            <h3>Functional Programming Features</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Map: transform each element
+let numbers = [1, 2, 3, 4, 5];
+let squared = map(lambda x -> x * x, numbers);  :: [1, 4, 9, 16, 25]
+
+:: Filter: keep matching elements
+let evens = filter(lambda x -> x % 2 == 0, numbers);  :: [2, 4]
+
+:: Reduce: combine to single value
+let sum = reduce(lambda a, b -> a + b, numbers);  :: 15
+
+:: Generators (lazy evaluation)
+function fibonacci() {
+    let a = 0;
+    let b = 1;
+    yield a;
+    while (True) {
+        yield b;
+        let temp = a + b;
+        a = b;
+        b = temp;
+    }
+}
+
+let fib = fibonacci();
+for i in range(10) {
+    print(next(fib));  :: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- OOP -->
+        <section id="oop" class="content-section">
+            <h2>🧬 Object-Oriented Programming</h2>
+            
+            <h3>Classes & Objects</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Class definition
+class Person {
+    function __init__(name: String, age: Int) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    function greet() {
+        print("Hello, I'm " + this.name);
+    }
+    
+    function birthday() {
+        this.age = this.age + 1;
+        print(this.name + " is now " + this.age);
+    }
+}
+
+:: Create instance
+let person = new Person("Alice", 25);
+person.greet();       :: "Hello, I'm Alice"
+person.birthday();    :: "Alice is now 26"</code></pre>
+            </div>
+
+            <h3 id="inheritance">Inheritance & Polymorphism</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Base class
+class Animal {
+    function __init__(name: String) {
+        this.name = name;
+    }
+    
+    function speak() {
+        print(this.name + " makes a sound");
+    }
+}
+
+:: Derived class
+class Dog extends Animal {
+    function __init__(name: String, breed: String) {
+        super(name);
+        this.breed = breed;
+    }
+    
+    function speak() {
+        print(this.name + " barks!");
+    }
+}
+
+:: Multi-level inheritance
+class ServiceDog extends Dog {
+    function assist(person) {
+        print(this.name + " assists " + person);
+    }
+}
+
+:: Usage
+let dog = new Dog("Rex", "Golden Retriever");
+dog.speak();         :: "Rex barks!"
+
+let service_dog = new ServiceDog("Max", "Labrador");
+service_dog.speak(); :: "Max barks!"
+service_dog.assist("John");</code></pre>
+            </div>
+
+            <h3 id="borrowing">Borrowing & Memory Safety</h3>
+            <div class="section-content glass-card">
+                <p>KentScript uses a Rust-like ownership system to prevent memory errors without garbage collection overhead:</p>
+                <div class="code-showcase">
+                    <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample(':: Ownership: values have one owner\nlet list1 = [1, 2, 3];\nlet list2 = list1;  :: Moves ownership\n:: list1 is no longer valid\n\n:: Borrowing: temporary access without ownership\nlet data = [1, 2, 3];\nfunction read_data(data: &List<Int>) {\n    print(data[0]);\n}\nread_data(&data);  :: Borrow immutably\nprint(data);       :: Still valid!\n\n:: Mutable borrowing\nmut numbers = [1, 2, 3];\nfunction modify_data(data: &mut List<Int>) {\n    data.append(4);\n}\nmodify_data(&mut numbers);\nprint(numbers);    :: [1, 2, 3, 4]\n\n:: Clone for explicit copying\nlet original = [1, 2, 3];\nlet copy = original.clone();\nprint(original);   :: [1, 2, 3] (still valid)')">📋 Copy</button>
+                    <pre><code>:: Ownership: values have one owner
+let list1 = [1, 2, 3];
+let list2 = list1;  :: Moves ownership
+:: list1 is no longer valid
+
+:: Borrowing: temporary access without ownership
+let data = [1, 2, 3];
+function read_data(data: &List<Int>) {
+    print(data[0]);
+}
+read_data(&data);  :: Borrow immutably
+print(data);       :: Still valid!
+
+:: Mutable borrowing
+mut numbers = [1, 2, 3];
+function modify_data(data: &mut List<Int>) {
+    data.append(4);
+}
+modify_data(&mut numbers);
+print(numbers);    :: [1, 2, 3, 4]
+
+:: Clone for explicit copying
+let original = [1, 2, 3];
+let copy = original.clone();
+print(original);   :: [1, 2, 3] (still valid)</code></pre>
+                </div>
+                </div>
+                <ul class="feature-list">
+                    <li><strong>Ownership</strong> - Each value has one owner at a time</li>
+                    <li><strong>Borrowing</strong> - Functions can borrow immutably or mutably</li>
+                    <li><strong>References</strong> - Use &T for immutable, &mut T for mutable references</li>
+                    <li><strong>Automatic Cleanup</strong> - Memory freed when value drops (RAII)</li>
+                </ul>
+            </div>
+
+            <h3 id="patterns">Pattern Matching</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Basic match
+function describe(value) {
+    match (value) {
+        case 0: {
+            print("Zero");
+        }
+        case 1 | 2 | 3: {
+            print("Small positive");
+        }
+        case x if x > 10: {
+            print("Large: " + x);
+        }
+        default: {
+            print("Other: " + value);
+        }
+    }
+}
+
+:: Pattern matching with destructuring
+let point = (10, 20);
+match (point) {
+    case (0, 0) -> print("Origin")
+    case (0, y) -> print("On y-axis: " + y)
+    case (x, 0) -> print("On x-axis: " + x)
+    case (x, y) -> print("Point: (" + x + ", " + y + ")")
+}
+
+:: List pattern matching
+let list = [1, 2, 3];
+match (list) {
+    case [] -> print("Empty")
+    case [x] -> print("Single: " + x)
+    case [x, y] -> print("Pair: " + x + ", " + y)
+    case [x, ...rest] -> print("First: " + x + ", Rest: " + rest)
+}</code></pre>
+            </div>
+        
+                <h3>Interfaces & Protocols</h3>
+                <p>Define contracts that classes must implement:</p>
+                <div class="code-example">
+                    <pre><code>interface Shape {
+    func area() -> float;
+    func perimeter() -> float;
+};
+
+class Circle : Shape {
+    func init(radius) {
+        this.radius = radius;
+    };
+
+    func area() {
+        return 3.14159 * this.radius * this.radius;
+    };
+
+    func perimeter() {
+        return 2 * 3.14159 * this.radius;
+    };
+};
+
+class Rectangle : Shape {
+    func init(width, height) {
+        this.width = width;
+        this.height = height;
+    };
+
+    func area() {
+        return this.width * this.height;
+    };
+
+    func perimeter() {
+        return 2 * (this.width + this.height);
+    };
+};</code></pre>
+                </div>
+
+                <h3>Static Methods & Properties</h3>
+                <div class="code-example">
+                    <pre><code>class Counter {
+    static count = 0;         :: Static property
+    static instances = [];     :: Static list
+
+    func init() {
+        Counter.count = Counter.count + 1;
+        Counter.instances.append(this);
+    };
+
+    static func get_count() -> int {
+        return Counter.count;
+    };
+
+    static func reset() {
+        Counter.count = 0;
+        Counter.instances = [];
+    };
+};
+
+let c1 = Counter();
+let c2 = Counter();
+
+print(Counter.get_count());     :: 2
+Counter.reset();
+print(Counter.get_count());     :: 0</code></pre>
+                </div>
+    </section>
+
+        <!-- Async & Concurrency -->
+        <section id="async" class="content-section">
+            <h2>⚡ Async/Await & Concurrency</h2>
+            
+            <h3>Async Functions</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>import requests;
+
+:: Define async function
+async function fetch_data(url: String) -> String {
+    let response = await requests.get(url);
+    return response.text();
+}
+
+:: Using async functions
+async function load_multiple() {
+    let url1 = "https://api.example.com/data1";
+    let url2 = "https://api.example.com/data2";
+    
+    let data1 = await fetch_data(url1);
+    let data2 = await fetch_data(url2);
+    
+    return [data1, data2];
+}
+
+:: Concurrent execution (parallel)
+async function load_concurrent() {
+    let url1 = "https://api.example.com/data1";
+    let url2 = "https://api.example.com/data2";
+    
+    let results = await asyncio.gather(
+        fetch_data(url1),
+        fetch_data(url2)
+    );
+    
+    return results;
+}</code></pre>
+            </div>
+
+            <h3 id="threading">Threading & Multi-core</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Thread pool execution
+let thread_pool = ThreadPool(4);  :: 4 worker threads
+
+function process_item(n: Int) -> Int {
+    return n * n;
+}
+
+:: Map function across threads
+let results = thread_pool.map(process_item, [1, 2, 3, 4, 5]);
+print(results);  :: [1, 4, 9, 16, 25]
+
+:: Lock mechanism for thread safety
+let lock = Lock();
+let shared_counter = 0;
+
+function increment_counter() {
+    with lock {
+        shared_counter = shared_counter + 1;
+    }
+}
+
+:: Launch threads
+let thread1 = Thread(increment_counter);
+let thread2 = Thread(increment_counter);
+
+thread1.start();
+thread2.start();
+thread1.join();
+thread2.join();
+
+print(shared_counter);  :: 2 (safely incremented)</code></pre>
+            </div>
+
+            <h3 id="generators">Generators & Yield</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Simple generator
+function count_up_to(n) {
+    let i = 0;
+    while (i < n) {
+        yield i;
+        i = i + 1;
+    }
+}
+
+for value in count_up_to(5) {
+    print(value);  :: 0, 1, 2, 3, 4
+}
+
+:: Infinite generator
+function infinite_counter() {
+    let i = 0;
+    while (True) {
+        yield i;
+        i = i + 1;
+    }
+}
+
+:: Fibonacci generator
+function fibonacci_gen() {
+    let a = 0;
+    let b = 1;
+    yield a;
+    
+    while (True) {
+        yield b;
+        let temp = a + b;
+        a = b;
+        b = temp;
+    }
+}
+
+:: Generator composition
+function flatten(nested) {
+    for item in nested {
+        if (isinstance(item, list)) {
+            yield from flatten(item);
+        } else {
+            yield item;
+        }
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Modules & Standard Library -->
+        <section id="modules" class="content-section">
+            <h2>📦 Modules & Standard Library</h2>
+            <p>KentScript includes 25+ built-in modules covering common tasks:</p>
+            <div class="modules-grid">
+                <div class="module-card glass-card">
+                    <h4>🌐 Network</h4>
+                    <ul>
+                        <li>http - HTTP/REST APIs</li>
+                        <li>requests - Client requests</li>
+                        <li>socket - TCP/UDP sockets</li>
+                        <li>websocket - WebSocket support</li>
+                        <li>ssl - TLS/SSL encryption</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>💾 Data</h4>
+                    <ul>
+                        <li>json - JSON encoding/decoding</li>
+                        <li>csv - CSV file handling</li>
+                        <li>sqlite - SQLite database ORM</li>
+                        <li>pickle - Object serialization</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>🔐 Security</h4>
+                    <ul>
+                        <li>crypto - Encryption (AES, RSA)</li>
+                        <li>hashlib - Hash functions (MD5, SHA)</li>
+                        <li>hmac - Message authentication</li>
+                        <li>random - Cryptographically secure RNG</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>📁 File System</h4>
+                    <ul>
+                        <li>os - OS operations</li>
+                        <li>path - Path handling</li>
+                        <li>fs - File operations</li>
+                        <li>zip - Compression</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>🎨 GUI</h4>
+                    <ul>
+                        <li>gui - Desktop applications</li>
+                        <li>canvas - 2D graphics/drawing</li>
+                        <li>event - Event handling</li>
+                        <li>style - CSS-like styling</li>
+                    </ul>
+                </div>
+                <div class="module-card glass-card">
+                    <h4>⏱️ Utilities</h4>
+                    <ul>
+                        <li>time - Time operations</li>
+                        <li>datetime - Date/Time manipulation</li>
+                        <li>math - Mathematical functions</li>
+                        <li>random - Random number generation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="stdlib">Standard Library Examples</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Math module
+import math;
+print(math.pi);           :: 3.14159...
+print(math.sqrt(16));     :: 4.0
+print(math.sin(0));       :: 0.0
+print(math.factorial(5)); :: 120
+
+:: JSON module
+import json;
+let data = {"name": "Alice", "age": 30};
+let json_str = json.dumps(data);
+let parsed = json.loads(json_str);
+
+:: HTTP module
+import requests;
+let response = requests.get("https://api.example.com/data");
+let data = response.json();
+
+:: Time module
+import time;
+print(time.time());       :: Current timestamp
+time.sleep(1);            :: Sleep 1 second
+
+:: File I/O
+with open("data.txt", "r") as file {
+    let content = file.read();
+}
+
+:: Database
+import db;
+let conn = db.connect("data.db");
+conn.execute("INSERT INTO users (name) VALUES (?)", ("Alice",));
+conn.commit();</code></pre>
+            </div>
+
+            <h3 id="packages">Package Manager (KPM)</h3>
+            <div class="section-content glass-card">
+                <p>KentScript includes a built-in package manager for managing dependencies:</p>
+                <div class="code-block">
+                    <pre><code>:: kpm.json - Project configuration
+{
+    "name": "my-project",
+    "version": "1.0.0",
+    "description": "My KentScript project",
+    "main": "src/main.ks",
+    "dependencies": {
+        "requests": "^2.28.0",
+        "sqlite": "^1.0.0",
+        "dotenv": "^0.10.0"
+    },
+    "dev-dependencies": {
+        "pytest": "^7.0.0",
+        "coverage": "^6.0.0"
+    },
+    "scripts": {
+        "start": "ks src/main.ks",
+        "test": "ks test/run_tests.ks",
+        "build": "ks build.ks"
+    }
+}
+
+:: Command line usage
+kpm init              # Initialize new project
+kpm install           # Install dependencies
+kpm install requests  # Install specific package
+kpm remove requests   # Remove package
+kpm run start         # Run script
+kpm publish           # Publish to registry</code></pre>
+                </div>
+            </div>
+        
+
+                <h3>String Operations - Complete Reference</h3>
+                <div class="code-example">
+                    <pre><code>let s = "Hello, World!";
+
+:: CASE OPERATIONS
+s.upper();               :: "HELLO, WORLD!"
+s.lower();               :: "hello, world!"
+s.capitalize();          :: "Hello, world!"
+
+:: SEARCHING & CHECKING
+s.contains("World");     :: true
+s.starts_with("Hello");  :: true
+s.ends_with("!");        :: true
+s.find("o");             :: 4
+s.count("l");            :: 3
+
+:: SLICING & SUBSTRINGS
+s[0:5];                  :: "Hello"
+s[7:];                   :: "World!"
+s[-6:];                  :: "World!"
+
+:: SPLITTING & JOINING
+s.split(", ");           :: ["Hello", "World!"]
+"-".join(["a", "b"]);    :: "a-b"
+
+:: REPLACEMENT & TRIMMING
+s.replace("World", "KentScript");
+s.strip();               :: Remove whitespace
+s.lstrip();              :: Left trim
+s.rstrip();              :: Right trim
+
+:: PADDING & FORMATTING
+s.center(20);            :: Center in 20 chars
+s.ljust(20);             :: Left justify
+s.rjust(20);             :: Right justify
+s.zfill(20);             :: Pad with zeros</code></pre>
+                </div>
+
+                <h3>Collections - Arrays, Maps, Sets, Tuples</h3>
+                <div class="code-example">
+                    <pre><code>:: LISTS/ARRAYS
+let list = [1, 2, 3, 4, 5];
+list.append(6);          :: Add to end
+list.insert(0, 0);       :: Insert at index
+list.pop();              :: Remove and return last
+list.remove(3);          :: Remove by value
+list.reverse();          :: Reverse
+list.sort();             :: Sort
+len(list);               :: Length
+list[0];                 :: First element
+list[-1];                :: Last element
+list[1:3];               :: Slice [2, 3]
+
+:: LIST COMPREHENSIONS
+[x * 2 for x in range(5)];      :: [0, 2, 4, 6, 8]
+[x for x in list if x % 2 == 0];  :: Filter evens
+
+:: DICTIONARIES
+let dict = {a: 1, b: 2, c: 3};
+dict["a"];               :: 1
+dict["d"] = 4;           :: Add key
+dict.keys();             :: Get all keys
+dict.values();           :: Get all values
+dict.items();            :: Get key-value pairs
+dict.get("a");           :: 1
+dict.get("z", "default");  :: Default value
+len(dict);               :: 4
+
+:: SETS
+let set = {1, 2, 3, 4, 5};
+set.add(6);              :: Add element
+set.remove(1);           :: Remove
+set1 = {1, 2, 3};
+set2 = {2, 3, 4};
+set1 | set2;             :: Union {1,2,3,4}
+set1 & set2;             :: Intersection {2,3}
+set1 - set2;             :: Difference {1}
+
+:: TUPLES (immutable)
+let tuple = (1, "two", 3.0);
+tuple[0];                :: 1
+len(tuple);              :: 3</code></pre>
+                </div>
+
+                <h3>All 20+ Standard Library Modules</h3>
+                <div class="code-example">
+                    <pre><code>import math;              :: sqrt, sin, cos, factorial, etc.
+import time;              :: time(), sleep(), strftime()
+import json;              :: dumps(), loads(), JSON parsing
+import random;            :: random(), randint(), choice()
+import crypto;            :: sha256(), md5(), base64 encode/decode
+import syscall;           :: getpid(), open(), read(), write()
+import unsafe;            :: malloc, free, memory ops
+import malloc;            :: Alias for unsafe memory
+import pointer;           :: Pointer arithmetic and operations
+import borrow;            :: Rust-style borrowing
+import asm;               :: Inline x86-64 assembly
+import os;                :: listdir(), mkdir(), remove()
+import sys;               :: exit(), argv, stdout, stderr
+import datetime;          :: Date/time manipulation
+import regex;             :: Pattern matching
+import csv;               :: CSV file I/O
+import http;              :: HTTP GET/POST requests
+import requests;          :: Full HTTP client
+import test;              :: Unit testing framework
+import database;          :: SQL database support
+import gui;               :: GUI components</code></pre>
+                </div>
+
+                <h3>Math Module - Mathematical Functions</h3>
+                <div class="code-example">
+                    <pre><code>import math;
+
+:: BASIC OPERATIONS
+math.sqrt(16);           :: 4.0
+math.pow(2, 8);          :: 256
+math.abs(-42);           :: 42
+math.min(3, 5, 1, 9);    :: 1
+math.max(3, 5, 1, 9);    :: 9
+
+:: TRIGONOMETRY
+math.sin(math.pi / 2);   :: 1.0
+math.cos(0);             :: 1.0
+math.tan(math.pi / 4);   :: 1.0
+math.asin(1);            :: pi/2
+math.acos(0);            :: pi/2
+
+:: LOGARITHMS & EXPONENTIALS
+math.exp(1);             :: 2.71828 (e)
+math.log(2.71828);       :: 1.0 (natural log)
+math.log10(100);         :: 2.0 (base 10 log)
+math.log2(8);            :: 3.0 (base 2 log)
+
+:: ADVANCED
+math.factorial(5);       :: 120
+math.gcd(48, 18);        :: 6
+math.ceil(3.2);          :: 4
+math.floor(3.8);         :: 3
+
+:: CONSTANTS
+math.pi;                 :: 3.14159265359
+math.e;                  :: 2.71828182846</code></pre>
+                </div>
+
+                <h3>Crypto Module - Hashing & Encoding</h3>
+                <div class="code-example">
+                    <pre><code>import crypto;
+
+:: HASHING
+crypto.sha256("hello");          :: SHA256 hash
+crypto.sha512("data");           :: SHA512 hash
+crypto.md5("text");              :: MD5 hash
+crypto.sha1("value");            :: SHA1 hash
+
+:: BASE64 ENCODING
+crypto.base64_encode("hello");   :: "aGVsbG8="
+crypto.base64_decode("aGVsbG8=");  :: "hello"
+
+:: HMAC (Hash-based Message Auth)
+crypto.hmac("secret_key", "message");
+
+:: RANDOM GENERATION
+import random;
+random.random();         :: Float 0.0-1.0
+random.randint(1, 100);  :: Random int 1-100
+random.choice([1, 2, 3]);  :: Random element
+random.shuffle([1, 2, 3, 4, 5]);  :: Shuffle list</code></pre>
+                </div>
+</section>
+
+        <!-- Error Handling -->
+        <section id="errors" class="content-section">
+            <h2>🛡️ Error Handling</h2>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Try-catch-finally
+try {
+    let result = risky_operation();
+    print("Result: " + result);
+} catch (error) {
+    print("Error: " + error);
+} finally {
+    print("Cleanup");
+}
+
+:: Multiple catch blocks
+try {
+    let value = parse_int("not a number");
+} catch (ValueError e) {
+    print("Invalid number: " + e);
+} catch (TypeError e) {
+    print("Type error: " + e);
+} catch (error) {
+    print("Unknown error: " + error);
+}
+
+:: Custom exception
+class ValidationError extends Error {
+    function __init__(message: String, field: String) {
+        this.message = message;
+        this.field = field;
+    }
+}
+
+:: Raising exceptions
+function validate_email(email: String) {
+    if (not email.contains("@")) {
+        raise new ValidationError(
+            "Invalid email format",
+            "email"
+        );
+    }
+}
+
+:: Try-else (success case)
+try {
+    let result = operation();
+} catch (error) {
+    print("Failed: " + error);
+} else {
+    print("Success: " + result);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Testing & Advanced -->
+        <section id="testing" class="content-section">
+            <h2>🧪 Testing & Advanced Features</h2>
+            <div class="code-showcase glass-card">
+                <pre><code>import unittest;
+
+:: Unit test class
+class TestMathUtils extends unittest.TestCase {
+    function setUp() {
+        :: Setup before each test
+        this.math = MathUtils();
+    }
+    
+    function test_add() {
+        let result = this.math.add(2, 3);
+        this.assertEqual(result, 5);
+    }
+    
+    function test_divide_by_zero() {
+        this.assertRaises(ZeroDivisionError, lambda -> {
+            this.math.divide(10, 0);
+        });
+    }
+    
+    function tearDown() {
+        :: Cleanup after each test
+    }
+}
+
+:: Run tests
+if (__name__ == "__main__") {
+    unittest.main();
+}
+
+:: Profiling
+@profile
+function slow_operation() {
+    let total = 0;
+    for i in range(1000000) {
+        total = total + i;
+    }
+    return total;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- IDE Playground -->
+        <section id="playground" class="content-section">
+            <h2>🎮 Interactive Playground</h2>
+            <p>Write and execute KentScript code with real-time syntax highlighting:</p>
+
+            <div class="playground">
+                <!-- Editor -->
+                <div class="editor-panel">
+                    <div class="panel-header">
+                        <span>📝 Code Editor</span>
+                        <div class="editor-controls">
+                            <select id="examplesSelect" onchange="loadExample()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(91, 141, 239, 0.3); background: rgba(91, 141, 239, 0.1); color: #e2e8f0; font-family: 'Inter', sans-serif;">
+                                <option value="">📚 Load Example...</option>
+                                <option value="hello">Hello World</option>
+                                <option value="variables">Variables & Types</option>
+                                <option value="functions">Functions</option>
+                                <option value="fibonacci">Fibonacci (Recursive)</option>
+                                <option value="loops">Loops & Control</option>
+                                <option value="classes">Classes & OOP</option>
+                                <option value="lists">Lists & Collections</option>
+                                <option value="pattern">Pattern Matching</option>
+                                <option value="lambda">Lambda & Map/Filter</option>
+                                <option value="closure">Closures</option>
+                            </select>
+                            <button onclick="formatCode()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">✏️</button>
+                            <button onclick="copyCode()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">📋</button>
+                            <button onclick="clearCode()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️</button>
+                        </div>
+                    </div>
+                    <textarea id="codeEditor" placeholder="Write KentScript code here..." style="flex: 1; background: #1a1a2e; color: #10b981; border: none; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; resize: none; outline: none;"></textarea>
+                    <div class="editor-footer">
+                        <span>📝 <span id="lineCount">1</span> lines</span>
+                        <span>⌨️ <span id="charCount">0</span> chars</span>
+                        <span>🔧 <span id="funcCount">0</span> functions</span>
+                    </div>
+                </div>
+
+                <!-- Output -->
+                <div class="output-panel">
+                    <div class="panel-header" style="display: flex; justify-content: space-between;">
+                        <span>📤 Output Console</span>
+                        <button onclick="clearOutput()" style="padding: 8px 12px; background: rgba(91, 141, 239, 0.2); border: 1px solid #5B8DEF; color: #5B8DEF; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️</button>
+                    </div>
+                    <div id="output" style="flex: 1; padding: 20px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #666;">Output will appear here...</div>
+                    <div class="editor-footer">
+                        <span>⏱️ <span id="execTime">0</span>ms</span>
+                        <span><span id="status">Ready</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="runCode()" style="margin-top: 20px; padding: 14px 40px; background: #5B8DEF; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; max-width: 300px; display: block; margin-left: auto; margin-right: auto;">
+                ▶️ Run Code (Ctrl+Enter)
+            </button>
+        </section>
+
+        <!-- API Reference -->
+        <section id="api" class="content-section">
+            <h2>📚 Complete API Reference</h2>
+            
+            <h3>Global Functions</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead>
+                        <tr><th>Function</th><th>Parameters</th><th>Returns</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>print()</code></td><td>*values</td><td>None</td><td>Output to console</td></tr>
+                        <tr><td><code>len()</code></td><td>collection</td><td>Int</td><td>Get length of collection</td></tr>
+                        <tr><td><code>range()</code></td><td>start, stop, step</td><td>Iterator</td><td>Generate number sequence</td></tr>
+                        <tr><td><code>type()</code></td><td>value</td><td>Type</td><td>Get type of value</td></tr>
+                        <tr><td><code>isinstance()</code></td><td>value, type</td><td>Bool</td><td>Check type membership</td></tr>
+                        <tr><td><code>str(), int(), float()</code></td><td>value</td><td>Converted</td><td>Type conversion</td></tr>
+                        <tr><td><code>list(), dict(), set()</code></td><td>iterable</td><td>Collection</td><td>Create collection</td></tr>
+                        <tr><td><code>min(), max()</code></td><td>iterable</td><td>Value</td><td>Find min/max element</td></tr>
+                        <tr><td><code>sum()</code></td><td>iterable, start=0</td><td>Number</td><td>Sum all elements</td></tr>
+                        <tr><td><code>sorted()</code></td><td>iterable, reverse=False</td><td>List</td><td>Create sorted list</td></tr>
+                        <tr><td><code>map()</code></td><td>fn, iterable</td><td>Iterator</td><td>Apply function to all</td></tr>
+                        <tr><td><code>filter()</code></td><td>fn, iterable</td><td>Iterator</td><td>Keep matching elements</td></tr>
+                        <tr><td><code>reduce()</code></td><td>fn, iterable, init</td><td>Value</td><td>Combine all elements</td></tr>
+                        <tr><td><code>enumerate()</code></td><td>iterable</td><td>Iterator</td><td>Index and value pairs</td></tr>
+                        <tr><td><code>zip()</code></td><td>*iterables</td><td>Iterator</td><td>Parallel iteration</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>String Methods</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead><tr><th>Method</th><th>Parameters</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.upper()</code></td><td></td><td>String</td><td>Uppercase version</td></tr>
+                        <tr><td><code>.lower()</code></td><td></td><td>String</td><td>Lowercase version</td></tr>
+                        <tr><td><code>.capitalize()</code></td><td></td><td>String</td><td>Capitalize first letter</td></tr>
+                        <tr><td><code>.strip()</code></td><td></td><td>String</td><td>Remove whitespace</td></tr>
+                        <tr><td><code>.split()</code></td><td>sep=' '</td><td>List</td><td>Split into parts</td></tr>
+                        <tr><td><code>.join()</code></td><td>iterable</td><td>String</td><td>Join list into string</td></tr>
+                        <tr><td><code>.replace()</code></td><td>old, new, count=-1</td><td>String</td><td>Replace substrings</td></tr>
+                        <tr><td><code>.find()</code></td><td>substring</td><td>Int</td><td>Find index (or -1)</td></tr>
+                        <tr><td><code>.startswith()</code></td><td>prefix</td><td>Bool</td><td>Check prefix</td></tr>
+                        <tr><td><code>.endswith()</code></td><td>suffix</td><td>Bool</td><td>Check suffix</td></tr>
+                        <tr><td><code>.contains()</code></td><td>substring</td><td>Bool</td><td>Check if contains</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>List Methods</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead><tr><th>Method</th><th>Parameters</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.append(x)</code></td><td>element</td><td>Add element to end</td></tr>
+                        <tr><td><code>.pop(index=-1)</code></td><td>index</td><td>Remove and return element</td></tr>
+                        <tr><td><code>.insert(i, x)</code></td><td>index, element</td><td>Insert at position</td></tr>
+                        <tr><td><code>.remove(x)</code></td><td>element</td><td>Remove first occurrence</td></tr>
+                        <tr><td><code>.clear()</code></td><td></td><td>Remove all elements</td></tr>
+                        <tr><td><code>.sort()</code></td><td>reverse=False</td><td>Sort in place</td></tr>
+                        <tr><td><code>.reverse()</code></td><td></td><td>Reverse in place</td></tr>
+                        <tr><td><code>.index(x)</code></td><td>element</td><td>Find index of element</td></tr>
+                        <tr><td><code>.count(x)</code></td><td>element</td><td>Count occurrences</td></tr>
+                        <tr><td><code>.copy()</code></td><td></td><td>Create shallow copy</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Dictionary Methods</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead><tr><th>Method</th><th>Parameters</th><th>Returns</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>.keys()</code></td><td></td><td>List</td><td>Get all keys</td></tr>
+                        <tr><td><code>.values()</code></td><td></td><td>List</td><td>Get all values</td></tr>
+                        <tr><td><code>.items()</code></td><td></td><td>List</td><td>Get key-value pairs</td></tr>
+                        <tr><td><code>.get(key, default)</code></td><td>key, default=None</td><td>Value</td><td>Get value with default</td></tr>
+                        <tr><td><code>.pop(key)</code></td><td>key</td><td>Value</td><td>Remove and return value</td></tr>
+                        <tr><td><code>.update(other)</code></td><td>dict</td><td>None</td><td>Update with other dict</td></tr>
+                        <tr><td><code>.clear()</code></td><td></td><td>None</td><td>Remove all items</td></tr>
+                        <tr><td><code>.copy()</code></td><td></td><td>Dict</td><td>Create shallow copy</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Advanced Topics -->
+        <section class="content-section" style="background: linear-gradient(135deg, rgba(91, 141, 239, 0.1), rgba(157, 91, 210, 0.1)); padding: 40px; border-radius: 12px; border: 1px solid rgba(91, 141, 239, 0.2);">
+            <h2>🎓 Advanced Topics</h2>
+            <div class="features-grid">
+                <div class="feature glass-card">
+                    <h4>🔍 Reflection & Metaprogramming</h4>
+                    <p>Dynamic attribute access, type introspection, and runtime code generation</p>
+                </div>
+                <div class="feature glass-card">
+                    <h4>💾 Context Managers</h4>
+                    <p>Resource management with __enter__ and __exit__ (with statement)</p>
+                </div>
+                <div class="feature glass-card">
+                    <h4>🧬 Type System</h4>
+                    <p>Type hints, generics, protocols, and structural typing</p>
+                </div>
+                <div class="feature glass-card">
+                    <h4>⚙️ Caching & Memoization</h4>
+                    <p>Built-in caching, LRU cache, and performance optimization</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Reference -->
+        <section class="content-section">
+            <h2>⚡ Quick Reference Card</h2>
+            <div class="section-content glass-card">
+                <h3>Essential Syntax</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Variables</h4>
+                        <code>const x = 10;</code><br>
+                        <code>let y = 20;</code><br>
+                        <code>var z = 30;</code>
+                    </div>
+                    <div>
+                        <h4>Functions</h4>
+                        <code>function add(a, b) { return a + b; }</code><br>
+                        <code>var sq = lambda x -> x * x;</code>
+                    </div>
+                    <div>
+                        <h4>Control Flow</h4>
+                        <code>if (x > 0) { ... }</code><br>
+                        <code>for i in range(10) { ... }</code><br>
+                        <code>while (x > 0) { ... }</code>
+                    </div>
+                    <div>
+                        <h4>Collections</h4>
+                        <code>[1, 2, 3]  :: List</code><br>
+                        <code>{"a": 1}   :: Dict</code><br>
+                        <code>(1, 2)     :: Tuple</code>
+                    </div>
+                    <div>
+                        <h4>Classes</h4>
+                        <code>class MyClass { function __init__(x) { ... } }</code><br>
+                        <code>let obj = new MyClass(5);</code>
+                    </div>
+                    <div>
+                        <h4>Pattern Matching</h4>
+                        <code>match (x) {</code><br>
+                        <code>  case 1 -> print("one")</code><br>
+                        <code>  case _ -> print("other")</code><br>
+                        <code>}</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ COMPREHENSIVE EXPANSION START ============ -->
+
+        <!-- UNSAFE & HARDWARE SECTION -->
+        <section id="unsafe-hardware" class="content-section">
+            <h2>⚙️ Unsafe Operations & Direct Hardware Access</h2>
+            <p>KentScript provides complete low-level hardware access for embedded systems, OS development, and performance-critical applications.</p>
+
+            <h3>Unsafe Blocks - Direct Memory Access</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Unsafe block for direct hardware access without bounds checking
+unsafe {
+    :: Memory allocation - C-style malloc
+    let buffer = malloc(1024);
+    
+    :: Write and read single bytes
+    write_byte(buffer, 0, 65);     :: Write ASCII 'A'
+    let byte_val = read_byte(buffer, 0);
+    print("Byte: " + str(byte_val));  :: Output: 65
+    
+    :: Write and read multi-byte values
+    write_word(buffer, 4, 0xDEADBEEF, 4);  :: 4-byte word
+    let word_val = read_word(buffer, 4, 4);
+    print("Word: " + str(word_val));  :: 0xDEADBEEF
+    
+    :: Memory operations
+    memcpy(dst, 0, src, 0, 256);  :: Copy 256 bytes
+    memset(buffer, 16, 0xFF, 32); :: Fill 32 bytes with 0xFF
+    memmove(buffer, 0, buffer, 16, 100);  :: Overlapping copy
+    
+    :: String operations (null-terminated C strings)
+    write_string(buffer, 32, "Hello");
+    let str = read_string(buffer, 32);
+    print("String: " + str);
+    
+    :: Get memory statistics
+    let stats = memory_stats();
+    print("Allocated: " + str(stats.allocated) + " bytes");
+    print("Peak: " + str(stats.peak) + " bytes");
+    
+    :: Real memory allocation (mmap - outside Python heap)
+    let real_mem = malloc_real(4096);
+    free(real_mem);
+    
+    :: Cleanup
+    free(buffer);
+};
+
+:: Safe blocks enforce bounds checking
+safe {
+    let arr = [1, 2, 3, 4, 5];
+    for i in range(len(arr)) {
+        print(arr[i]);  :: Bounds checked - safe
+    }
+    :: Cannot access arr[100] - bounds checking prevents it
+}</code></pre>
+            </div>
+
+            <h3>Hardware Port I/O - Serial & Device Communication</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>unsafe {
+    :: I/O Port operations for device communication
+    
+    :: Serial port (COM1 at 0x3F8)
+    write_port(0x3F8, 65);      :: Send 'A' to serial port
+    let status = read_port(0x3F8);
+    
+    :: UART control registers
+    write_port(0x3F9, 0x03);    :: Set baud rate
+    write_port(0x3FA, 0x03);    :: Set line control
+    
+    :: Keyboard controller
+    let scancode = read_port(0x60);
+    write_port(0x64, 0xAA);     :: Keyboard command
+    
+    :: System timer
+    write_port(0x43, 0x36);     :: Timer mode
+    write_port(0x40, 0x00);     :: Timer count low
+    write_port(0x40, 0x00);     :: Timer count high
+    
+    :: Programmable Interrupt Controller (PIC)
+    write_port(0x20, 0x20);     :: Send EOI (End of Interrupt)
+    write_port(0xA0, 0x20);     :: Slave PIC EOI
+}</code></pre>
+            </div>
+
+            <h3>Memory-Mapped I/O (MMIO) - Direct Register Access</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>unsafe {
+    :: MMIO for hardware registers in memory space
+    
+    let mmio_base = 0x80000000;
+    
+    :: Write to MMIO register
+    write_mmio(mmio_base, 0x12345678);
+    
+    :: Read from MMIO register
+    let value = read_mmio(mmio_base);
+    
+    :: MMIO with offset
+    mmio_write(mmio_base, 4, 0xABCD);
+    let reg_val = mmio_read(mmio_base, 4);
+    
+    :: GPIO Example: Control LED pins
+    let gpio_base = 0x40020000;
+    let gpioa_moder = 0x00;      :: Mode register offset
+    let gpioa_odr = 0x14;        :: Output data register offset
+    
+    mmio_write(gpio_base, gpioa_moder, 0x00000001);  :: PA0 as output
+    mmio_write(gpio_base, gpioa_odr, 0x00000001);    :: Set PA0 HIGH (LED on)
+    time.sleep(1);
+    mmio_write(gpio_base, gpioa_odr, 0x00000000);    :: Set PA0 LOW (LED off)
+    
+    :: Interrupt Control Register Example
+    let vic_base = 0x10140000;  :: VIC base address
+    mmio_write(vic_base, 0, 0xFFFFFFFF);  :: Enable all interrupts
+    let enabled = mmio_read(vic_base, 0);
+}</code></pre>
+            </div>
+
+            <h3>Interrupt Control</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>unsafe {
+    :: Disable all hardware interrupts (critical section)
+    disable_interrupts();
+    
+    :: Critical region - no interrupts can occur
+    print("In critical section");
+    write_port(0x20, 0x20);      :: Send EOI
+    let data = read_port(0x21);  :: Read interrupt mask
+    
+    :: Re-enable interrupts
+    enable_interrupts();
+    
+    :: Nested critical sections
+    let old_state = get_interrupt_state();
+    disable_interrupts();
+    
+    :: Do critical work
+    write_byte(memory_ptr, 0, 255);
+    
+    :: Restore previous state
+    set_interrupt_state(old_state);
+}</code></pre>
+            </div>
+
+            <h3>Pointer Arithmetic & Type Information</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>import pointer;
+
+unsafe {
+    :: Allocate array of 100 integers (8 bytes each)
+    let arr = malloc(100 * 8);
+    
+    :: Pointer arithmetic
+    let ptr1 = arr;
+    let ptr2 = pointer.add(ptr1, 8);      :: Next element (add 8 bytes)
+    let ptr5 = pointer.add(ptr1, 32);     :: 5th element (add 32 bytes)
+    
+    :: Pointer difference
+    let offset_bytes = pointer.sub(ptr5, ptr1);  :: 32 bytes
+    print("Offset: " + str(offset_bytes));
+    
+    :: Scaled pointer access (element-aware)
+    let elem_10 = pointer.scale(arr, 8, 10);  :: 10th 8-byte element
+    let elem_50 = pointer.scale(arr, 8, 50);  :: 50th 8-byte element
+    
+    :: Type information
+    let int_size = pointer.sizeof(Int);       :: 8 bytes
+    let int_align = pointer.alignof(Int);     :: 8 bytes alignment
+    let float_size = pointer.sizeof(Float);   :: 8 bytes
+    
+    :: Type casting
+    let as_int_ptr = pointer.cast(arr, Int);
+    let as_byte_ptr = pointer.cast(arr, Byte);
+    
+    :: Writing through typed pointer
+    write_byte(as_byte_ptr, 0, 65);
+    write_byte(as_byte_ptr, 1, 66);
+    write_byte(as_byte_ptr, 2, 67);
+    
+    free(arr);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- BORROW CHECKING SECTION -->
+        
+            <h3>Memory Allocation - Complete Guide</h3>
+            <p><strong>Low-level memory management with safety checks:</strong></p>
+            <div class="code-example">
+                <pre><code>import unsafe;
+
+:: malloc - allocate memory block
+unsafe {
+    let ptr = malloc(256);  :: Allocate 256 bytes
+    write_byte(ptr, 0, 65);  :: Write data
+    let val = read_byte(ptr, 0);  :: Read back
+    free(ptr);              :: Must free when done
+};
+
+:: calloc - allocate and zero-initialize
+unsafe {
+    let data = calloc(100, 4);  :: 100 x 4-byte elements, all zeros
+    for i in range(100) {
+        let byte = read_byte(data, i*4);
+    };
+    free(data);
+};
+
+:: realloc - resize memory block
+unsafe {
+    let ptr = malloc(256);
+    ptr = realloc(ptr, 512);    :: Grow to 512 bytes
+    write_byte(ptr, 500, 0xFF);
+    free(ptr);
+};
+
+:: malloc_real - real physical memory (via mmap)
+unsafe {
+    let real = malloc_real(4096);   :: Real memory
+    write_string(real, 0, "Hardware access!");
+    let text = read_string(real, 0);
+    print(text);
+    free(real);
+};</code></pre>
+            </div>
+
+            <h3>Memory Operations - Copying & Setting</h3>
+            <div class="code-example">
+                <pre><code>import unsafe;
+
+unsafe {
+    :: MEMCPY - Copy memory block
+    let dest = malloc(256);
+    let src = malloc(64);
+    
+    write_word(src, 0, 0xDEADBEEF, size=4);
+    memcpy(dest, 0, src, 0, 4);  :: Copy 4 bytes
+    
+    let copied = read_word(dest, 0, size=4);
+    print(hex(copied));  :: 0xdeadbeef
+
+    :: MEMSET - Fill memory with byte value
+    memset(dest, 0, 0xFF, 16);  :: Fill 16 bytes with 0xFF
+    let filled = read_byte(dest, 0);  :: 255
+
+    :: MEMMOVE - Safe copy (handles overlap)
+    memmove(dest, 20, dest, 0, 40);  :: Safe even with overlap
+    
+    :: STRING OPERATIONS IN MEMORY
+    write_string(dest, 100, "Hello from memory!");
+    let text = read_string(dest, 100);
+    print(text);
+
+    free(dest);
+    free(src);
+};</code></pre>
+            </div>
+
+            <h3>Hardware I/O - Ports & Memory-Mapped I/O</h3>
+            <div class="code-example">
+                <pre><code>import unsafe;
+
+unsafe {
+    :: I/O PORT OPERATIONS
+    
+    :: Write byte to I/O port
+    write_port(0x3F8, 0x41);        :: Write to serial port
+    
+    :: Read byte from I/O port
+    let status = read_port(0x60);   :: Read keyboard status
+
+    :: Multi-byte port I/O
+    write_port_word(0x100, 0x12345678, size=4);
+    let value = read_port_word(0x100, size=4);
+    
+    :: MEMORY-MAPPED I/O (MMIO)
+    
+    :: Write to MMIO register
+    let APIC_BASE = 0xFEE00000;
+    mmio_write(APIC_BASE, 0x20, 0xDEADBEEF);
+    mmio_write(APIC_BASE, 0x24, 0xCAFEBABE);
+    
+    :: Read from MMIO register
+    let id = mmio_read(APIC_BASE, 0x20);
+    print(hex(id));  :: 0xdeadbeef
+    
+    :: INTERRUPT CONTROL
+    
+    :: Disable interrupts for critical section
+    disable_interrupts();
+    :: ... atomic/critical code here ...
+    enable_interrupts();
+};</code></pre>
+            </div>
+
+            <h3>Inline x86-64 Assembly Execution</h3>
+            <div class="code-example">
+                <pre><code>import asm;
+
+unsafe {
+    :: SIMPLE ARITHMETIC IN ASM
+    asm("mov rax, 42");
+    asm("add rax, 8");     :: rax now = 50
+
+    :: ASSEMBLY WITH PARAMETERS
+    let result = asm(
+        "mov rax, {0}
+         mov rbx, {1}
+         add rax, rbx
+         ret",
+        10,
+        20
+    );
+    print(result);  :: 30
+
+    :: MULTIPLICATION FUNCTION
+    func asm_multiply(a: int, b: int) -> int {
+        return asm(
+            "mov rax, {0}
+             mov rbx, {1}
+             imul rax, rbx
+             ret",
+            a,
+            b
+        );
+    };
+    
+    print(asm_multiply(6, 7));  :: 42
+
+    :: REGISTER OPERATIONS & FLAGS
+    asm("mov rax, 5");
+    asm("mov rbx, 5");
+    asm("cmp rax, rbx");   :: Compare (sets flags)
+
+    :: LOOPS IN ASSEMBLY
+    let sum = asm(
+        "mov rax, 0
+         mov rcx, {0}
+         .loop:
+         add rax, rcx
+         dec rcx
+         cmp rcx, 0
+         jnz .loop
+         ret",
+        10
+    );
+    print(sum);  :: 55 (sum of 1..10)
+};</code></pre>
+            </div>
+
+            <h3>Memory Safety & Error Detection</h3>
+            <div class="code-example">
+                <pre><code>import unsafe;
+
+:: USE-AFTER-FREE DETECTION
+unsafe {
+    let ptr = malloc(64);
+    free(ptr);
+    
+    try {
+        read_byte(ptr, 0);  :: ❌ ERROR!
+    } catch RuntimeError as e {
+        print("Error: " + e);  :: "Use-after-free detected"
+    };
+};
+
+:: DOUBLE-FREE DETECTION
+unsafe {
+    let ptr = malloc(64);
+    free(ptr);
+    
+    try {
+        free(ptr);  :: ❌ ERROR!
+    } catch RuntimeError as e {
+        print("Error: " + e);  :: "Double-free detected"
+    };
+};
+
+:: BOUNDS CHECKING
+unsafe {
+    let ptr = malloc(64);
+    
+    try {
+        write_byte(ptr, 1000, 0xFF);  :: ❌ Out of bounds!
+    } catch IndexError as e {
+        print("Out of bounds: offset exceeds allocation");
+    };
+    
+    free(ptr);
+};
+
+:: MEMORY STATISTICS & DEBUGGING
+unsafe {
+    for i in range(10) {
+        malloc(256);
+    };
+    
+    let stats = memory_stats();
+    print("Current: " + stats["current_allocated"] + " bytes");
+    print("Peak: " + stats["peak_allocated"] + " bytes");
+    print("Active blocks: " + stats["active_blocks"]);
+    print("Utilization: " + stats["utilization_percent"] + "%");
+};</code></pre>
+            </div>
+
+        <section id="borrow-detailed" class="content-section">
+            <h2>🔒 Borrow Checking - Rust-Style Memory Safety</h2>
+            <p>KentScript implements Rust's ownership and borrowing system for memory safety without garbage collection.</p>
+
+            <h3>The Three Rules of Borrowing</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: RULE 1: Multiple immutable borrows allowed
+let data = [1, 2, 3, 4, 5];
+let borrow1 = borrow_immutable(data);
+let borrow2 = borrow_immutable(data);
+let borrow3 = borrow_immutable(data);
+
+print(read(borrow1));  :: Read through borrow1
+print(read(borrow2));  :: Read through borrow2
+print(read(borrow3));  :: Read through borrow3
+
+release(borrow1);
+release(borrow2);
+release(borrow3);
+
+:: RULE 2: Only one mutable borrow at a time
+let mut_data = [10, 20, 30];
+let mut_borrow = borrow_mutable(mut_data);
+
+:: Modify through mutable borrow
+write(mut_borrow, [11, 21, 31]);
+
+:: Cannot create another borrow until this is released
+release(mut_borrow);
+
+:: RULE 3: Cannot mix immutable and mutable borrows
+let shared = [100, 200];
+let imm_borrow = borrow_immutable(shared);
+print(read(imm_borrow));
+
+:: ERROR: This would violate borrowing rules
+:: let mut_borrow = borrow_mutable(shared);  :: COMPILE ERROR
+
+release(imm_borrow);</code></pre>
+            </div>
+
+            <h3>Practical Borrowing Example - Data Validation</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample('class User {\n    function __init__(name: String, email: String, age: Int) {\n        self.name = name;\n        self.email = email;\n        self.age = age;\n    }\n}\n\nfunction validate_user(user: User) {\n    :: Immutable borrow to check data\n    let check = borrow_immutable(user);\n    let u = read(check);\n    \n    if (len(u.email) < 3) {\n        print("Error: Email too short");\n        release(check);\n        return false;\n    }\n    \n    if (u.age < 18) {\n        print("Error: Must be 18+");\n        release(check);\n        return false;\n    }\n    \n    release(check);\n    return true;\n}\n\nfunction update_user(user: User, new_email: String) {\n    :: Mutable borrow to modify\n    let edit = borrow_mutable(user);\n    read(edit).email = new_email;\n    release(edit);\n}\n\nlet user = new User("Alice", "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f3e33363c3a1f3a273e322f333a713c3032">[email&#160;protected]</a>", 25);\nvalidate_user(user);\nupdate_user(user, "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3554595c56501b5b504275504d54584559501b565a58">[email&#160;protected]</a>");')">📋 Copy</button>
+                    <pre><code>class User {
+    function __init__(name: String, email: String, age: Int) {
+        self.name = name;
+        self.email = email;
+        self.age = age;
+    }
+}
+
+function validate_user(user: User) {
+    :: Immutable borrow to check data
+    let check = borrow_immutable(user);
+    let u = read(check);
+    
+    if (len(u.email) < 3) {
+        print("Error: Email too short");
+        release(check);
+        return false;
+    }
+    
+    if (u.age < 18) {
+        print("Error: Must be 18+");
+        release(check);
+        return false;
+    }
+    
+    release(check);
+    return true;
+}
+
+function update_user(user: User, new_email: String) {
+    :: Mutable borrow to modify
+    let edit = borrow_mutable(user);
+    read(edit).email = new_email;
+    release(edit);
+}
+
+let user = new User("Alice", "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f3e33363c3a1f3a273e322f333a713c3032">[email&#160;protected]</a>", 25);
+validate_user(user);
+update_user(user, "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3554595c56501b5b504275504d54584559501b565a58">[email&#160;protected]</a>");</code></pre>
+                </div>
+            </div>
+
+            <h3>Banking Example - Resource Management</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>class BankAccount {
+    function __init__(balance: Float) {
+        self.balance = balance;
+    }
+    
+    function deposit(amount: Float) {
+        self.balance = self.balance + amount;
+    }
+    
+    function withdraw(amount: Float) -> Bool {
+        if (self.balance >= amount) {
+            self.balance = self.balance - amount;
+            return true;
+        }
+        return false;
+    }
+    
+    function get_balance() -> Float {
+        return self.balance;
+    }
+}
+
+function process_transaction(account: BankAccount, amount: Float) {
+    :: Check balance immutably
+    let check = borrow_immutable(account);
+    let current = read(check).get_balance();
+    print("Current balance: " + str(current));
+    release(check);
+    
+    :: Perform transaction mutably
+    if (amount > 0) {
+        let trans = borrow_mutable(account);
+        read(trans).deposit(amount);
+        release(trans);
+    }
+    
+    :: Final check
+    let final_check = borrow_immutable(account);
+    print("New balance: " + str(read(final_check).get_balance()));
+    release(final_check);
+}
+
+let acc = new BankAccount(1000);
+process_transaction(acc, 500);  :: Deposit 500</code></pre>
+            </div>
+        </section>
+
+        <!-- ADVANCED THREADING SECTION -->
+        <section id="threading-advanced" class="content-section">
+            <h2>🧵 Advanced Threading & Concurrency</h2>
+
+            <h3>Thread Pools & Parallel Processing</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Thread pool for parallel work
+let pool = ThreadPool(4);  :: 4 worker threads
+
+function process_item(item: Int) -> Int {
+    :: Some expensive computation
+    return item * item;
+}
+
+:: Map function over items using thread pool
+let data = [1, 2, 3, 4, 5, 6, 7, 8];
+let results = pool.map(process_item, data);
+print(results);  :: [1, 4, 9, 16, 25, 36, 49, 64]
+
+:: Async map
+async func async_process(item: Int) -> Int {
+    await time.sleep(0.1);
+    return item * item;
+}
+
+let async_results = pool.async_map(async_process, data);</code></pre>
+            </div>
+
+            <h3>Producer-Consumer Pattern with Synchronization</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>class ThreadSafeQueue {
+    function __init__(max_size: Int) {
+        self.items = [];
+        self.max_size = max_size;
+        self.not_full = Event();
+        self.not_empty = Event();
+        self.lock = Mutex();
+    }
+    
+    function put(item) {
+        self.lock.acquire();
+        
+        while (len(self.items) >= self.max_size) {
+            self.lock.release();
+            self.not_full.wait();
+            self.lock.acquire();
+        }
+        
+        self.items.append(item);
+        self.not_empty.set();
+        self.lock.release();
+    }
+    
+    function get() {
+        self.lock.acquire();
+        
+        while (len(self.items) == 0) {
+            self.lock.release();
+            self.not_empty.wait();
+            self.lock.acquire();
+        }
+        
+        let item = self.items.pop(0);
+        self.not_full.set();
+        self.lock.release();
+        return item;
+    }
+}
+
+let queue = new ThreadSafeQueue(100);
+
+func producer_worker() {
+    for i in range(100) {
+        queue.put(i);
+        print("Produced: " + str(i));
+    }
+}
+
+func consumer_worker() {
+    for i in range(100) {
+        let item = queue.get();
+        print("Consumed: " + str(item));
+    }
+}
+
+:: Spawn producer and consumer threads
+thread producer_worker();
+thread consumer_worker();</code></pre>
+            </div>
+
+            <h3>Semaphore for Resource Pooling</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>class ResourcePool {
+    function __init__(size: Int) {
+        self.sem = Semaphore(size);
+        self.resources = [];
+        for i in range(size) {
+            self.resources.append("Resource_" + str(i));
+        }
+        self.lock = Mutex();
+    }
+    
+    function acquire_resource() {
+        self.sem.acquire();
+        self.lock.acquire();
+        let resource = self.resources.pop();
+        self.lock.release();
+        return resource;
+    }
+    
+    function release_resource(resource) {
+        self.lock.acquire();
+        self.resources.append(resource);
+        self.lock.release();
+        self.sem.release();
+    }
+}
+
+let pool = new ResourcePool(3);  :: Only 3 resources available
+
+func worker(id: Int) {
+    let res = pool.acquire_resource();
+    print("Worker " + str(id) + " using " + res);
+    
+    time.sleep(1);  :: Use resource for 1 second
+    
+    pool.release_resource(res);
+    print("Worker " + str(id) + " released " + res);
+}
+
+for i in range(10) {
+    thread worker(i);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- ADVANCED MODULES SECTION -->
+        <section id="modules-comprehensive" class="content-section">
+            <h2>📦 Complete Module System & Ecosystem</h2>
+
+            <h3>Custom Module Development</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: File: math_utils.ks
+:: Custom mathematical utilities module
+
+import math;
+
+class Vector3D {
+    function __init__(x: Float, y: Float, z: Float) {
+        self.x = x;
+        self.y = y;
+        self.z = z;
+    }
+    
+    function magnitude() -> Float {
+        let sq = self.x * self.x + self.y * self.y + self.z * self.z;
+        return math.sqrt(sq);
+    }
+    
+    function normalize() -> Vector3D {
+        let mag = self.magnitude();
+        if (mag == 0) return new Vector3D(0, 0, 0);
+        return new Vector3D(
+            self.x / mag,
+            self.y / mag,
+            self.z / mag
+        );
+    }
+    
+    function dot(other: Vector3D) -> Float {
+        return self.x * other.x + self.y * other.y + self.z * other.z;
+    }
+    
+    function cross(other: Vector3D) -> Vector3D {
+        return new Vector3D(
+            self.y * other.z - self.z * other.y,
+            self.z * other.x - self.x * other.z,
+            self.x * other.y - self.y * other.x
+        );
+    }
+}
+
+function create_vector(x: Float, y: Float, z: Float) -> Vector3D {
+    return new Vector3D(x, y, z);
+}
+
+:: Usage in main.ks
+import math_utils as mu;
+
+let v1 = mu.create_vector(1, 2, 3);
+let v2 = mu.create_vector(4, 5, 6);
+
+print("Magnitude v1: " + str(v1.magnitude()));      :: ~3.74
+print("Dot product: " + str(v1.dot(v2)));           :: 32
+let cross = v1.cross(v2);
+print("Cross: (" + str(cross.x) + ", " + str(cross.y) + ", " + str(cross.z) + ")");</code></pre>
+            </div>
+
+            <h3>All 25+ Built-in Modules Reference</h3>
+            <div class="syntax-table-wrapper">
+                <table class="syntax-table">
+                    <thead>
+                        <tr><th>Module</th><th>Key Functions</th><th>Purpose</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>math</code></td><td>sqrt, pow, sin, cos, tan, floor, ceil</td><td>Mathematical operations</td></tr>
+                        <tr><td><code>time</code></td><td>time(), sleep(), strftime()</td><td>Time & timing</td></tr>
+                        <tr><td><code>json</code></td><td>loads(), dumps()</td><td>JSON encoding/decoding</td></tr>
+                        <tr><td><code>random</code></td><td>random(), randint(), choice()</td><td>Random generation</td></tr>
+                        <tr><td><code>crypto</code></td><td>sha256(), md5(), encrypt()</td><td>Cryptography</td></tr>
+                        <tr><td><code>requests</code></td><td>get(), post(), put(), delete()</td><td>HTTP client</td></tr>
+                        <tr><td><code>http</code></td><td>server(), route()</td><td>HTTP server</td></tr>
+                        <tr><td><code>socket</code></td><td>socket(), bind(), listen()</td><td>Raw sockets</td></tr>
+                        <tr><td><code>ssl</code></td><td>wrap_socket()</td><td>TLS/SSL</td></tr>
+                        <tr><td><code>csv</code></td><td>read(), write()</td><td>CSV handling</td></tr>
+                        <tr><td><code>database</code></td><td>connect(), query(), insert()</td><td>Database ORM</td></tr>
+                        <tr><td><code>sqlite</code></td><td>open(), execute()</td><td>SQLite</td></tr>
+                        <tr><td><code>os</code></td><td>listdir(), mkdir(), remove()</td><td>OS operations</td></tr>
+                        <tr><td><code>sys</code></td><td>exit(), argv, environ</td><td>System info</td></tr>
+                        <tr><td><code>datetime</code></td><td>datetime(), date(), timedelta()</td><td>Date/time</td></tr>
+                        <tr><td><code>regex</code></td><td>match(), findall(), sub()</td><td>Regular expressions</td></tr>
+                        <tr><td><code>gui</code></td><td>Window(), Button(), Label()</td><td>GUI toolkit</td></tr>
+                        <tr><td><code>canvas</code></td><td>line(), circle(), fill()</td><td>2D graphics</td></tr>
+                        <tr><td><code>unsafe</code></td><td>malloc(), write_byte(), write_port()</td><td>Low-level access</td></tr>
+                        <tr><td><code>pointer</code></td><td>add(), sub(), sizeof(), cast()</td><td>Pointer arithmetic</td></tr>
+                        <tr><td><code>borrow</code></td><td>borrow_immutable(), borrow_mutable()</td><td>Borrow checking</td></tr>
+                        <tr><td><code>asm</code></td><td>asm()</td><td>Inline assembly</td></tr>
+                        <tr><td><code>test</code></td><td>assert_eq(), assert_true()</td><td>Unit testing</td></tr>
+                        <tr><td><code>pickle</code></td><td>dumps(), loads()</td><td>Object serialization</td></tr>
+                        <tr><td><code>zip</code></td><td>open(), read(), write()</td><td>Archive handling</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PERFORMANCE & OPTIMIZATION SECTION -->
+        <section id="perf-advanced" class="content-section">
+            <h2>⚡ Performance Optimization & JIT Compilation</h2>
+
+            <h3>JIT Decorator for Hot Functions</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample(':: Mark functions for JIT compilation - compiled to native code\n@jit\nfunc fibonacci(n: Int) -> Int {\n    if (n <= 1) return n;\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}\n\n:: Benchmark: JIT vs. interpreter\nlet start = time.time();\nlet result = fibonacci(40);  :: Millions of calls - JIT makes this fast\nlet elapsed = time.time() - start;\nprint("Result: " + str(result));\nprint("Time: " + str(elapsed) + " seconds");  :: Sub-second instead of minutes\n\n:: Matrix multiplication - perfect for JIT\n@jit\nfunc matrix_mult(a: List[List[Int]], b: List[List[Int]]) -> List[List[Int]] {\n    let m = len(a);\n    let n = len(b[0]);\n    let k = len(b);\n    let c = [];\n    \n    for i in range(m) {\n        let row = [];\n        for j in range(n) {\n            let sum = 0;\n            for p in range(k) {\n                sum = sum + a[i][p] * b[p][j];\n            }\n            row.append(sum);\n        }\n        c.append(row);\n    }\n    return c;\n}')">📋 Copy</button>
+                    <pre><code>:: Mark functions for JIT compilation - compiled to native code
+@jit
+func fibonacci(n: Int) -> Int {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+:: Benchmark: JIT vs. interpreter
+let start = time.time();
+let result = fibonacci(40);  :: Millions of calls - JIT makes this fast
+let elapsed = time.time() - start;
+print("Result: " + str(result));
+print("Time: " + str(elapsed) + " seconds");  :: Sub-second instead of minutes
+
+:: Matrix multiplication - perfect for JIT
+@jit
+func matrix_mult(a: List[List[Int]], b: List[List[Int]]) -> List[List[Int]] {
+    let m = len(a);
+    let n = len(b[0]);
+    let k = len(b);
+    let c = [];
+    
+    for i in range(m) {
+        let row = [];
+        for j in range(n) {
+            let sum = 0;
+            for p in range(k) {
+                sum = sum + a[i][p] * b[p][j];
+            }
+            row.append(sum);
+        }
+        c.append(row);
+    }
+    return c;
+}</code></pre>
+                </div>
+            </div>
+
+            <h3>Type Hints Enable Optimization</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: WITHOUT type hints - slow (dynamic dispatch)
+func slow_process(data, multiplier) {
+    return [x * multiplier for x in data];
+}
+
+:: WITH type hints - fast (direct operations)
+func fast_process(data: List[Int], multiplier: Int) -> List[Int] {
+    return [x * multiplier for x in data];
+}
+
+:: Type hints enable:
+:: - Direct numeric operations (no type checking)
+:: - Function inlining
+:: - Better JIT optimization
+:: - Memory layout optimization
+
+:: Type-hinted function processing 1M integers
+func process_huge_array(data: List[Int], factor: Int, offset: Int) -> List[Int] {
+    :: Type hints allow compiler to generate efficient code
+    return [(x * factor) + offset for x in data];
+}
+
+let large_data = range(1000000);
+let result = process_huge_array(large_data, 2, 10);  :: Fast with types</code></pre>
+            </div>
+
+            <h3>Bytecode Caching & Compilation</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Bytecode automatically cached
+:: First run: compile + execute
+:: Subsequent runs: load cached + execute (faster)
+
+import sys;
+
+:: Check bytecode cache
+let stats = sys.get_bytecode_stats();
+print("Cached size: " + str(stats.size) + " bytes");
+print("Cached files: " + str(stats.count));
+
+:: Clear cache if needed
+sys.clear_bytecode_cache();
+
+:: Compile-time vs. runtime decisions
+@staticmethod func compile_time_constant() -> Int {
+    return 42;  :: Compiler can inline this
+}
+
+:: Lazy evaluation
+func lazy_eval(condition: Bool, expensive_fn) {
+    if (condition) {
+        :: Only call expensive_fn if condition is true
+        return expensive_fn();
+    }
+    return None;
+}</code></pre>
+            </div>
+
+            <h3>Memory Profiling & Optimization</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>import sys;
+
+:: Get memory statistics
+let mem = sys.get_memory_stats();
+print("Memory used: " + str(mem.used) + " MB");
+print("Memory peak: " + str(mem.peak) + " MB");
+
+:: Garbage collection control
+sys.enable_gc();        :: Enable automatic GC
+sys.disable_gc();       :: Disable for critical sections
+sys.run_gc();           :: Manual collection
+
+:: Profile function execution
+@profile
+func my_function() {
+    let total = 0;
+    for i in range(1000000) {
+        total = total + i;
+    }
+    return total;
+}
+
+:: Memory usage per function
+let prof = sys.get_profile_stats("my_function");
+print("Function memory: " + str(prof.memory) + " MB");
+print("Function time: " + str(prof.time) + " seconds");</code></pre>
+            </div>
+        </section>
+
+        <!-- METAPROGRAMMING SECTION -->
+        <section id="metaprogramming" class="content-section">
+            <h2>🔮 Metaprogramming & Reflection</h2>
+
+            <h3>Runtime Type Inspection</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample('class Person {\n    function __init__(name: String, age: Int) {\n        self.name = name;\n        self.age = age;\n    }\n    \n    function greet() {\n        return "Hello, " + self.name;\n    }\n}\n\n:: Runtime reflection\nlet p = new Person("Alice", 30);\n\n:: Get type information\nprint(type(p));              :: "Person"\nprint(p.__class__);          :: Person class object\nprint(p.__dict__);           :: {"name": "Alice", "age": 30}\n\n:: Get all attributes\nlet attrs = dir(p);\nfor attr in attrs {\n    print(attr);  :: name, age, greet, __class__, __dict__\n}\n\n:: Check if has attribute\nif (hasattr(p, "name")) {\n    print(getattr(p, "name"));  :: "Alice"\n}\n\n:: Call method dynamically\nlet greet_fn = getattr(p, "greet");\nprint(greet_fn());  :: "Hello, Alice"\n\n:: Set attribute dynamically\nsetattr(p, "email", "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adccc1c4cec8edc8d5ccc0ddc1c883cec2c0">[email&#160;protected]</a>");\nprint(p.email);  :: "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43222f2a202603263b222e332f266d202c2e">[email&#160;protected]</a>"')">📋 Copy</button>
+                    <pre><code>class Person {
+    function __init__(name: String, age: Int) {
+        self.name = name;
+        self.age = age;
+    }
+    
+    function greet() {
+        return "Hello, " + self.name;
+    }
+}
+
+:: Runtime reflection
+let p = new Person("Alice", 30);
+
+:: Get type information
+print(type(p));              :: "Person"
+print(p.__class__);          :: Person class object
+print(p.__dict__);           :: {"name": "Alice", "age": 30}
+
+:: Get all attributes
+let attrs = dir(p);
+for attr in attrs {
+    print(attr);  :: name, age, greet, __class__, __dict__
+}
+
+:: Check if has attribute
+if (hasattr(p, "name")) {
+    print(getattr(p, "name"));  :: "Alice"
+}
+
+:: Call method dynamically
+let greet_fn = getattr(p, "greet");
+print(greet_fn());  :: "Hello, Alice"
+
+:: Set attribute dynamically
+setattr(p, "email", "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adccc1c4cec8edc8d5ccc0ddc1c883cec2c0">[email&#160;protected]</a>");
+print(p.email);  :: "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43222f2a202603263b222e332f266d202c2e">[email&#160;protected]</a>"</code></pre>
+                </div>
+            </div>
+
+            <h3>Decorators for Cross-Cutting Concerns</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Logging decorator
+func log_calls(func) {
+    func wrapper(*args, **kwargs) {
+        print("Calling: " + func.__name__);
+        let result = func(*args, **kwargs);
+        print("Returned: " + str(result));
+        return result;
+    }
+    return wrapper;
+}
+
+:: Caching decorator
+func memoize(func) {
+    let cache = {};
+    func wrapper(x) {
+        if (x in cache) {
+            print("Cache hit for " + str(x));
+            return cache[x];
+        }
+        let result = func(x);
+        cache[x] = result;
+        return result;
+    }
+    return wrapper;
+}
+
+:: Timing decorator
+func timeit(func) {
+    func wrapper(*args) {
+        let start = time.time();
+        let result = func(*args);
+        let elapsed = time.time() - start;
+        print(func.__name__ + " took " + str(elapsed) + "s");
+        return result;
+    }
+    return wrapper;
+}
+
+:: Apply decorators
+@log_calls
+@memoize
+@timeit
+func expensive_operation(n: Int) -> Int {
+    let sum = 0;
+    for i in range(n) {
+        sum = sum + i;
+    }
+    return sum;
+}
+
+print(expensive_operation(1000000));</code></pre>
+            </div>
+
+            <h3>Dynamic Code Generation</h3>
+            <div class="code-showcase glass-card">
+                <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample(':: Generate functions at runtime\nfunc create_multiplier(factor: Int) {\n    func multiplier(x: Int) -> Int {\n        return x * factor;\n    }\n    return multiplier;\n}\n\nlet times_3 = create_multiplier(3);\nlet times_5 = create_multiplier(5);\n\nprint(times_3(10));  :: 30\nprint(times_5(10));  :: 50\n\n:: Generate classes at runtime\nfunc create_data_class(name: String, fields: List[String]) {\n    class DynamicClass {\n        function __init__(*args) {\n            for i in range(len(fields)) {\n                setattr(self, fields[i], args[i]);\n            }\n        }\n    }\n    return DynamicClass;\n}\n\nlet PersonClass = create_data_class("Person", ["name", "age", "email"]);\nlet alice = new PersonClass("Alice", 30, "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b7a7772787e5b7e637a766b777e35787476">[email&#160;protected]</a>");\nprint(alice.name);   :: "Alice"\nprint(alice.age);    :: 30')">📋 Copy</button>
+                    <pre><code>:: Generate functions at runtime
+func create_multiplier(factor: Int) {
+    func multiplier(x: Int) -> Int {
+        return x * factor;
+    }
+    return multiplier;
+}
+
+let times_3 = create_multiplier(3);
+let times_5 = create_multiplier(5);
+
+print(times_3(10));  :: 30
+print(times_5(10));  :: 50
+
+:: Generate classes at runtime
+func create_data_class(name: String, fields: List[String]) {
+    class DynamicClass {
+        function __init__(*args) {
+            for i in range(len(fields)) {
+                setattr(self, fields[i], args[i]);
+            }
+        }
+    }
+    return DynamicClass;
+}
+
+let PersonClass = create_data_class("Person", ["name", "age", "email"]);
+let alice = new PersonClass("Alice", 30, "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b7a7772787e5b7e637a766b777e35787476">[email&#160;protected]</a>");
+print(alice.name);   :: "Alice"
+print(alice.age);    :: 30</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADVANCED PATTERNS SECTION -->
+        <section id="patterns-advanced" class="content-section">
+            <h2>🎯 Advanced Design Patterns</h2>
+
+            <h3>Builder Pattern</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>class QueryBuilder {
+    function __init__(table: String) {
+        self.table = table;
+        self.select_fields = ["*"];
+        self.where_clauses = [];
+        self.order_by = None;
+        self.limit_val = None;
+    }
+    
+    function select(fields: List[String]) -> QueryBuilder {
+        self.select_fields = fields;
+        return self;
+    }
+    
+    function where(condition: String) -> QueryBuilder {
+        self.where_clauses.append(condition);
+        return self;
+    }
+    
+    function order_by(field: String, direction: String) -> QueryBuilder {
+        self.order_by = field + " " + direction;
+        return self;
+    }
+    
+    function limit(count: Int) -> QueryBuilder {
+        self.limit_val = count;
+        return self;
+    }
+    
+    function build() -> String {
+        let query = "SELECT " + ",".join(self.select_fields);
+        query = query + " FROM " + self.table;
+        
+        if (len(self.where_clauses) > 0) {
+            query = query + " WHERE " + " AND ".join(self.where_clauses);
+        }
+        
+        if (self.order_by) {
+            query = query + " ORDER BY " + self.order_by;
+        }
+        
+        if (self.limit_val) {
+            query = query + " LIMIT " + str(self.limit_val);
+        }
+        
+        return query;
+    }
+}
+
+:: Fluent builder API
+let query = new QueryBuilder("users")
+    .select(["id", "name", "email"])
+    .where("age > 18")
+    .where("country = 'USA'")
+    .order_by("created_at", "DESC")
+    .limit(10)
+    .build();
+
+print(query);
+:: SELECT id,name,email FROM users WHERE age > 18 AND country = 'USA' ORDER BY created_at DESC LIMIT 10</code></pre>
+            </div>
+
+            <h3>Observer Pattern</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>class EventEmitter {
+    function __init__() {
+        self.listeners = {};
+    }
+    
+    function on(event: String, callback) {
+        if (event not in self.listeners) {
+            self.listeners[event] = [];
+        }
+        self.listeners[event].append(callback);
+    }
+    
+    function emit(event: String, *args) {
+        if (event in self.listeners) {
+            for listener in self.listeners[event] {
+                listener(*args);
+            }
+        }
+    }
+    
+    function off(event: String, callback) {
+        if (event in self.listeners) {
+            self.listeners[event].remove(callback);
+        }
+    }
+}
+
+let emitter = new EventEmitter();
+
+:: Listen for events
+emitter.on("user_login", func(username) {
+    print(username + " logged in");
+});
+
+emitter.on("user_logout", func(username) {
+    print(username + " logged out");
+});
+
+:: Emit events
+emitter.emit("user_login", "alice");    :: alice logged in
+emitter.emit("user_login", "bob");      :: bob logged in
+emitter.emit("user_logout", "alice");   :: alice logged out</code></pre>
+            </div>
+
+            <h3>Factory Pattern</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>class Animal {
+    function speak() {
+        return "Generic sound";
+    }
+}
+
+class Dog extends Animal {
+    function speak() {
+        return "Woof!";
+    }
+}
+
+class Cat extends Animal {
+    function speak() {
+        return "Meow!";
+    }
+}
+
+class Bird extends Animal {
+    function speak() {
+        return "Tweet!";
+    }
+}
+
+class AnimalFactory {
+    @staticmethod
+    function create(type: String) -> Animal {
+        if (type == "dog") {
+            return new Dog();
+        } else if (type == "cat") {
+            return new Cat();
+        } else if (type == "bird") {
+            return new Bird();
+        }
+        return new Animal();
+    }
+}
+
+:: Use factory
+let dog = AnimalFactory.create("dog");
+let cat = AnimalFactory.create("cat");
+let bird = AnimalFactory.create("bird");
+
+print(dog.speak());   :: Woof!
+print(cat.speak());   :: Meow!
+print(bird.speak());  :: Tweet!</code></pre>
+            </div>
+        </section>
+
+        <!-- ============ COMPREHENSIVE EXPANSION END ============ -->
+
+        <!-- ============ KPM PACKAGE MANAGER ============ -->
+        <section id="kpm" class="content-section">
+            <h2>📦 KPM - Package Manager</h2>
+            
+            <h3>Installation & Usage</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Check KPM version
+kpm --version;
+
+:: Install package from GitHub
+kpm install github:username/repo;
+
+:: Install from local directory
+kpm install ./my-package;
+
+:: List all installed packages
+kpm list;
+
+:: Remove a package
+kpm remove package-name;
+
+:: Update package
+kpm update package-name;</code></pre>
+            </div>
+
+            <h3>Creating Your Package</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Create kpm.json in your project root
+{
+    "name": "my-awesome-lib",
+    "version": "1.0.0",
+    "description": "My KentScript library",
+    "main": "lib/index.ks",
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "math-utils": "github:user/math-utils",
+        "crypto-lib": "github:user/crypto-lib"
+    }
+}
+
+:: Project structure
+my-awesome-lib/
+├── kpm.json
+├── lib/
+│   └── index.ks
+├── examples/
+│   ├── basic.ks
+│   └── advanced.ks
+└── README.md</code></pre>
+            </div>
+
+            <h3>Using Installed Packages</h3>
+            <div class="code-showcase glass-card">
+                <pre><code>:: Install a package
+kpm install github:musika/kentscript-stdlib;
+
+:: Import and use in your code
+from math-utils import Vector3D;
+from crypto-lib import sha256;
+
+:: Use the imported functions
+let v = Vector3D(1, 2, 3);
+print(v.magnitude());  :: Prints: 3.742
+
+let hash = sha256("hello");
+print(hash);</code></pre>
+            </div>
+        </section>
+
+        <!-- ============ ALL MODULES SECTION ============ -->
+        <section id="all-modules" class="content-section">
+            <h2>📚 Complete Module Reference (20+)</h2>
+
+            <h3>Core Standard Library</h3>
+            <div class="section-content glass-card">
+                <h4>math - Mathematical Operations</h4>
+                <div class="code-block">
+                    <pre><code>import math;
+
+let result = math.sqrt(16);      :: 4.0
+let power = math.pow(2, 8);      :: 256
+let sine = math.sin(math.pi/2);  :: 1.0
+let factorial = math.factorial(5); :: 120
+let gcd = math.gcd(48, 18);      :: 6</code></pre>
+                </div>
+
+                <h4>time - Time & Timing</h4>
+                <div class="code-block">
+                    <pre><code>import time;
+
+let current = time.time();       :: Current Unix timestamp
+time.sleep(2);                   :: Sleep 2 seconds
+let formatted = time.strftime(time.time(), "%Y-%m-%d");
+let parsed = time.strptime("2025-02-16", "%Y-%m-%d");</code></pre>
+                </div>
+
+                <h4>json - JSON Parsing</h4>
+                <div class="code-block">
+                    <pre><code>import json;
+
+let data = {"name": "Alice", "age": 30};
+let json_str = json.dumps(data);  :: Convert to string
+print(json_str);
+
+let parsed = json.loads('{"x": 5}');
+print(parsed.x);  :: 5</code></pre>
+                </div>
+
+                <h4>random - Random Numbers</h4>
+                <div class="code-block">
+                    <pre><code>import random;
+
+let r = random.random();           :: 0.0 to 1.0
+let num = random.randint(1, 100);  :: 1 to 100
+let choice = random.choice([1,2,3]); :: Pick one
+let arr = [1, 2, 3, 4, 5];
+random.shuffle(arr);</code></pre>
+                </div>
+
+                <h4>crypto - Cryptography</h4>
+                <div class="code-block">
+                    <pre><code>import crypto;
+
+let hash = crypto.sha256("password");  :: SHA256 hash
+let md5 = crypto.md5("text");
+let encoded = crypto.base64_encode("hello");
+let decoded = crypto.base64_decode(encoded);</code></pre>
+                </div>
+
+                <h4>os - Operating System</h4>
+                <div class="code-block">
+                    <pre><code>import os;
+
+let files = os.listdir(".");       :: List directory
+os.mkdir("new_folder");            :: Create directory
+os.remove("file.txt");             :: Delete file
+let cwd = os.getcwd();             :: Current directory
+os.chdir("/home/user");</code></pre>
+                </div>
+
+                <h4>sys - System Information</h4>
+                <div class="code-block">
+                    <pre><code>import sys;
+
+print(sys.platform);    :: "linux", "darwin", "win32"
+print(sys.version);     :: Python version
+print(sys.argv);        :: Command line arguments
+sys.exit(0);            :: Exit program</code></pre>
+                </div>
+            </div>
+
+            <h3>Low-Level & Hardware Access</h3>
+            <div class="section-content glass-card">
+                <h4>unsafe - Memory & Hardware (40+ Functions)</h4>
+                <div class="code-block">
+                    <pre><code>import unsafe;
+
+:: Memory Allocation
+let ptr = unsafe.malloc(256);           :: Allocate 256 bytes
+unsafe.calloc(100, 4);                  :: Allocate zeroed
+unsafe.realloc(ptr, 512);               :: Resize
+unsafe.free(ptr);                       :: Deallocate
+
+:: Byte Operations
+unsafe.write_byte(ptr, 0, 0x41);        :: Write byte
+let val = unsafe.read_byte(ptr, 0);     :: Read byte
+
+:: Word Operations (multi-byte)
+unsafe.write_word(ptr, 0, 0xDEADBEEF, 4);  :: Write 4 bytes
+let word = unsafe.read_word(ptr, 0, 4);    :: Read 4 bytes
+
+:: Block Operations
+unsafe.memcpy(dst, 0, src, 0, 32);     :: Copy memory
+unsafe.memset(ptr, 0, 0xAA, 16);       :: Fill with value
+unsafe.memmove(dst, 20, src, 0, 16);   :: Safe copy
+
+:: String Operations
+unsafe.write_string(ptr, 0, "Hello");
+let text = unsafe.read_string(ptr, 0);
+
+:: I/O Port Access
+unsafe.write_port(0x80, 0x42);         :: Write port
+let status = unsafe.read_port(0x80);   :: Read port
+
+:: Memory-Mapped I/O (MMIO)
+unsafe.mmio_write(0xFED00000, 0x00, 0xDEAD);
+let reg = unsafe.mmio_read(0xFED00000, 0x00);
+
+:: Interrupts
+unsafe.disable_interrupts();           :: CLI instruction
+:: ... critical section ...
+unsafe.enable_interrupts();            :: STI instruction
+
+:: Memory Statistics
+let stats = unsafe.memory_stats();     :: Get memory info</code></pre>
+                </div>
+
+                <h4>syscall - System Calls</h4>
+                <div class="code-block">
+                    <pre><code>import syscall;
+
+let fd = syscall.open("file.txt", 0, 0o644);  :: Open file
+syscall.close(fd);                             :: Close file
+let data = syscall.read(fd, 1024);             :: Read
+syscall.write(fd, "text");                     :: Write
+let stat = syscall.fstat(fd);                  :: Get info
+let pid = syscall.getpid();                    :: Process ID</code></pre>
+                </div>
+
+                <h4>pointer - Pointer Arithmetic</h4>
+                <div class="code-block">
+                    <pre><code>import pointer;
+
+let new_ptr = pointer.add(ptr, 10);        :: Offset pointer
+let diff = pointer.sub(ptr1, ptr2);        :: Pointer difference
+let scaled = pointer.scale(ptr, 4, 5);     :: Array indexing
+let size = pointer.sizeof(int);            :: Type size</code></pre>
+                </div>
+
+                <h4>asm - Inline Assembly</h4>
+                <div class="code-block">
+                    <pre><code>import asm;
+
+:: Execute x86-64 assembly inline
+asm.asm("""
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, [rsp]
+    mov rdx, 13
+    syscall
+""");</code></pre>
+                </div>
+            </div>
+
+            <h3>Advanced Modules</h3>
+            <div class="section-content glass-card">
+                <h4>datetime - Date & Time Objects</h4>
+                <div class="code-block">
+                    <pre><code>import datetime;
+
+let now = datetime.datetime.now();
+let date = datetime.date(2025, 2, 16);
+let time = datetime.time(14, 30, 0);
+let delta = datetime.timedelta(days=5);</code></pre>
+                </div>
+
+                <h4>regex - Regular Expressions</h4>
+                <div class="code-block">
+                    <pre><code>import regex;
+
+let matched = regex.match(r"(\d+)", "abc123def");
+let all = regex.findall(r"\d+", "1 2 3");
+let replaced = regex.sub(r"\d+", "X", "1 2 3");  :: "X X X"
+let parts = regex.split(r"\s+", "a b c");</code></pre>
+                </div>
+
+                <h4>http/requests - HTTP Client</h4>
+                <div class="code-block">
+                    <pre><code>import http;
+import requests;
+
+:: Simple GET
+let response = http.get("https://api.example.com/data");
+print(response.status);    :: 200
+print(response.text);      :: Response body
+
+:: POST request
+let data = {"key": "value"};
+let resp = requests.post("https://api.example.com/post", data);
+
+:: PUT, DELETE
+requests.put(url, data);
+requests.delete(url);</code></pre>
+                </div>
+
+                <h4>database - Database Connectivity</h4>
+                <div class="code-block">
+                    <pre><code>import database;
+
+:: Connect to database
+let conn = database.connect("mysql", "localhost", "user", "pass", "mydb");
+
+:: Query
+let result = conn.query("SELECT * FROM users");
+
+:: Insert
+conn.insert("users", {"name": "Alice", "age": 30});
+
+:: Update
+conn.update("users", {"age": 31}, "name = 'Alice'");
+
+:: Delete
+conn.delete("users", "age < 18");</code></pre>
+                </div>
+
+                <h4>gui - GUI Components</h4>
+                <div class="code-block">
+                    <pre><code>import gui;
+
+let window = gui.Window("My App", 800, 600);
+let button = gui.Button("Click me");
+let label = gui.Label("Status: Ready");
+let textbox = gui.TextBox();
+let canvas = gui.Canvas();
+
+window.add(button);
+window.add(label);
+window.run();</code></pre>
+                </div>
+
+                <h4>csv - CSV Files</h4>
+                <div class="code-block">
+                    <pre><code>import csv;
+
+:: Read CSV
+let data = csv.read("data.csv");
+
+:: Write CSV
+csv.write("output.csv", [
+    ["Name", "Age"],
+    ["Alice", "30"],
+    ["Bob", "25"]
+]);</code></pre>
+                </div>
+
+                <h4>test - Unit Testing</h4>
+                <div class="code-block">
+                    <div class="code-wrapper">
+                    <button class="copy-code-btn" onclick="copyCodeExample('import test;\n\ntest.assert_eq(2 + 2, 4);\ntest.assert_true(5 > 3);\ntest.assert_false(5 < 3);')">📋 Copy</button>
+                    <pre><code>import test;
+
+test.assert_eq(2 + 2, 4);
+test.assert_true(5 > 3);
+test.assert_false(5 < 3);</code></pre>
+                </div>
+                </div>
+
+                <h4>borrow - Rust-Style Borrowing</h4>
+                <div class="code-block">
+                    <pre><code>import borrow;
+
+:: Immutable borrow
+with borrow.borrow_immutable(variable) as b {
+    let val = borrow.read(b, "field");
+};
+
+:: Mutable borrow
+with borrow.borrow_mutable(variable) as b {
+    borrow.write(b, "field", new_value);
+};</code></pre>
+                </div>
+            </div>
+
+            <h3>Module Summary Table</h3>
+            <div class="section-content glass-card">
+                <table class="syntax-table">
+                    <thead>
+                        <tr><th>Module</th><th>Purpose</th><th>Key Functions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>math</td><td>Math functions</td><td>sqrt, pow, sin, cos, factorial, gcd</td></tr>
+                        <tr><td>time</td><td>Time operations</td><td>time(), sleep(), strftime, localtime</td></tr>
+                        <tr><td>json</td><td>JSON handling</td><td>loads, dumps, load, dump</td></tr>
+                        <tr><td>random</td><td>Random numbers</td><td>random(), randint(), choice(), shuffle()</td></tr>
+                        <tr><td>crypto</td><td>Cryptography</td><td>sha256, md5, base64_encode, base64_decode</td></tr>
+                        <tr><td>os</td><td>OS operations</td><td>listdir, mkdir, remove, getcwd, chdir</td></tr>
+                        <tr><td>sys</td><td>System info</td><td>exit, argv, platform, version</td></tr>
+                        <tr><td>unsafe</td><td>Memory/hardware</td><td>malloc, free, write_byte, mmio_write, write_port</td></tr>
+                        <tr><td>syscall</td><td>System calls</td><td>open, close, read, write, getpid</td></tr>
+                        <tr><td>datetime</td><td>Date/time</td><td>datetime, date, time, timedelta</td></tr>
+                        <tr><td>regex</td><td>Regex patterns</td><td>match, findall, sub, split</td></tr>
+                        <tr><td>http</td><td>HTTP client</td><td>get, post, request</td></tr>
+                        <tr><td>requests</td><td>HTTP client</td><td>get, post, put, delete</td></tr>
+                        <tr><td>database</td><td>DB access</td><td>connect, query, insert, update, delete</td></tr>
+                        <tr><td>gui</td><td>GUI widgets</td><td>Window, Button, Label, Canvas, TextBox</td></tr>
+                        <tr><td>csv</td><td>CSV files</td><td>read, write</td></tr>
+                        <tr><td>test</td><td>Unit testing</td><td>assert_eq, assert_true, assert_false</td></tr>
+                        <tr><td>borrow</td><td>Borrowing</td><td>borrow_immutable, borrow_mutable, read, write</td></tr>
+                        <tr><td>pointer</td><td>Pointer ops</td><td>add, sub, scale, sizeof, alignof</td></tr>
+                        <tr><td>asm</td><td>Inline ASM</td><td>asm(code_string)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🚀 KentScript</h4>
+                    <p>Modern scripting language combining simplicity, safety, and performance.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>📚 Learn</h4>
+                    <a href="#intro">Introduction</a>
+                    <a href="#core">Core Language</a>
+                    <a href="#functions">Functions</a>
+                    <a href="#oop">OOP</a>
+                    <a href="#modules">Modules</a>
+                </div>
+</a>
+                    <a href="https://github.com/musika/kentscript">GitHub</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 KentScript. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
